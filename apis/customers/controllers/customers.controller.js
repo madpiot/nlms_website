@@ -77,17 +77,23 @@ const insertMandal = (req, res) => {
 
 const add = (req, res) => {
   let body = req.body;
-  body = JSON.stringify(body)
   console.log(body);
   CustomersService.count()
   .then((response) => {
+    body.referenceID = response + 1;
     return CustomersService.add(body);
   })
   .then((response) => {
-    //res.redirect("/");
+    let index = mandals.map(function(mandal) { return mandal.name; }).indexOf(response.address.mandal);
+    if(index >= 0) {
+      res.redirect("/dashboard/list/"+mandals[index].url);
+    } else {
+      res.redirect("/dashboard/list/all");
+    }
   })
   .catch((error) => {
-
+    console.log(error);
+    res.redirect("/dashboard/list/all");
   })
 }
 
@@ -118,16 +124,23 @@ const get = (req, res) => {
 const getAll = (req, res) => {
 
   let { mandalUrl, limit, lastReferenceID } = req.body;
-  let index = mandals.map(function(mandal) { return mandal.url; }).indexOf(mandalUrl);
-  let mandal = mandals[index];
-  console.log(mandal);
+
+  let query = {};
+  if(mandalUrl != "all") {
+    let index = mandals.map(function(mandal) { return mandal.url; }).indexOf(mandalUrl);
+    let mandalName = mandals[index].name;
+    query = {
+      'address.mandal': mandalName
+    }
+  }
 
   limit = parseInt(limit) || 100;
   let total = 0;
-  CustomersService.count({'address.mandal': mandal.name})
+  CustomersService.count(query)
   .then((response) => {
     total = response;
-    return CustomersService.find({'address.mandal': mandal.name, referenceID: { $gt: parseInt(lastReferenceID)}}, limit, lastReferenceID );
+    query.referenceID =  { $gt: parseInt(lastReferenceID)};
+    return CustomersService.find(query, limit, lastReferenceID );
   })
   .then((response) => {
     res.status(200).json({ error: "0", message: "Customers Data retrieved", data: response, total: total});

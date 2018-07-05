@@ -60,9 +60,13 @@ angular.module('nlmsApp').service('PrintService', function(){
     mywindow.document.write('<html><body>');
     mywindow.document.write("<center><h4 style=\"background-color: #d7dfea;\">Data</h4><center>");
     mywindow.document.write("<table>");
-    mywindow.document.write("<tr><td>ID</td><td>Name</td><td>F/H Name</td><td>Aadhaar No</td><td>Mobile No</td><td>Address</td><td>Gender</td><td>Caste</td><td>Income</td><td>Disability</td></tr>");
-    list.forEach(function(data){
-      mywindow.document.write("<tr><td>"+data.referenceID+"</td><td>"+data.name+"</td><td>"+data.father+"</td><td>"+data.aadhaar+"</td><td>"+data.mobile+"</td><td>"+data.address.village+"</td><td>"+data.gender+"</td><td>"+data.caste+"</td><td>"+data.income+"</td><td>"+((data.disability)?'YES':'NO')+"</td></tr>");
+    mywindow.document.write("<tr><td>ID</td><td>Name</td><td>Mobile</td><td>Address</td><td>Gender</td><td>Income</td><td>Bank</td><td>Account</td><td>Applied Date</td></tr>");
+    list.forEach(function(d){
+      var disability = ((d.disability)?'YES':'NO');
+      var bank = d.bank.name+"<br/>"+d.bank.ifsc;
+      var name = d.name+"<br/>"+d.father;
+      var village = d.address.village;
+      mywindow.document.write("<tr><td>"+d.referenceID+"</td><td>"+name+"</td><td>"+d.aadhaar+"<br/>"+d.mobile+"</td><td>"+village+"</td><td>"+d.gender+"<br/>"+d.caste+"</td><td>"+d.income+"<br/>"+disability+"</td><td>"+bank+"</td><td>"+d.bank.account+"</td><td>"+d.appliedDate+"</td></tr>");
     });
 
     mywindow.document.write("</table>");

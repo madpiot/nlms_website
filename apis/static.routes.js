@@ -10,7 +10,11 @@ import {
 } from './auth/auth.service';
 
 router.get('/', function(req, res){
-  res.render("index");
+  if(req.session.user) {
+    res.redirect("/dashboard");
+  } else
+    res.render("index");
+
 });
 
 router.get('/dashboard', isUser.authenticated, function(req, res) {

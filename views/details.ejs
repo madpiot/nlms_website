@@ -1,0 +1,102 @@
+﻿<%- include layouts/header %>
+
+        <!-- Main content -->
+        <section class="content" ng-controller="mainController">
+          <% if (id) { %>
+          <script>
+            var id = JSON.parse('<%- JSON.stringify(id) %>');
+          </script>
+          <% } %>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+
+              <div class="box box-info" ng-init="getData()">
+                <div class="box-header">
+                  <h3 class="box-title">{{data.name}} details</h3>
+                    <div class="btn-group pull-right">
+                      <!-- <button class="btn btn-default btn-sm btn-info"><i class="fa fa-edit"></i></button> -->
+                      <button class="btn btn-default btn-sm btn-success" ng-click="print(data)"><i class="fa fa-print"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                  <!-- Color Picker -->
+                  <div class="form-group">
+                    <label>ID:</label>
+                    <span>{{data.referenceID}}</span>
+                  </div><!-- /.form group -->
+
+                  <!-- Color Picker -->
+                  <div class="form-group">
+                    <label>Name:</label>
+                    <span>{{data.name}}</span>
+                  </div><!-- /.form group -->
+
+                  <div class="form-group">
+                    <label>F/H Name:</label>
+                    <span>{{data.father}}</span>
+                  </div><!-- /.form group -->
+                  <div class="form-group">
+                    <label>Aadhaar No:</label>
+                    <span>{{data.aadhaar}}</span>
+                  </div><!-- /.form group -->
+
+                  <div class="form-group">
+                    <label>Mobile No:</label>
+                    <span>{{data.mobile}}</span>
+                  </div><!-- /.form group -->
+
+                  <div class="form-group">
+                    <label>Address:</label>
+                    <span>{{data.address.village}}</span>
+                  </div><!-- /.form group -->
+
+                  <div class="form-group">
+                    <label>Gender:</label>
+                    <span>{{data.gender}}</span>
+                  </div><!-- /.form group -->
+
+                  <div class="form-group">
+                    <label>Caste:</label>
+                    <span>{{data.caste}}</span>
+                  </div><!-- /.form group -->
+
+                  <div class="form-group">
+                    <label>Income:</label>
+                    <span>{{data.income}}</span>
+                  </div><!-- /.form group -->
+
+                  <div class="form-group">
+                    <label>Disability:</label>
+                    <span>{{data.disability}}</span>
+                  </div><!-- /.form group -->
+
+                  <div class="form-group">
+                    <label>Bank Name:</label>
+                    <span>{{data.bank.name}}</span>
+                  </div><!-- /.form group -->
+
+                  <div class="form-group">
+                    <label>IFSC Code:</label>
+                    <span>{{data.bank.ifsc}}</span>
+                  </div><!-- /.form group -->
+
+                  <div class="form-group">
+                    <label>Account No:</label>
+                    <span>{{data.bank.account}}</span>
+                  </div><!-- /.form group -->
+
+                  <div class="form-group">
+                    <label>Applied Date:</label>
+                    <span>{{data.appliedDate}}</span>
+                  </div><!-- /.form group -->
+
+                  <!-- time Picker -->
+
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+
+﻿<%- include layouts/footer %>

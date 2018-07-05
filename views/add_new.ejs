@@ -1,0 +1,174 @@
+<%- include layouts/header %>
+
+<section class="content" ng-controller="mainController">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="box box-primary">
+          <div class="box-header">
+            <h3 class="box-title">Add New</h3>
+          </div>
+          <form action="/customers/add" method="post">
+            <div class="box-body">
+              <!-- Date range -->
+              <div class="form-group">
+                <label>Name:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-user"></i>
+                  </div>
+                  <input type="text" name="name" class="form-control pull-right" placeholder="Name">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <!-- Date and time range -->
+              <div class="form-group">
+                <label>Father/Husband Name:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" name="father" class="form-control pull-right" placeholder="Father/Husband Name">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Aadhaar No:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="number" name="aadhaar" class="form-control pull-right" placeholder="Aadhaar No">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Mobile No:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="number" name="mobile" class="form-control pull-right" placeholder="Mobile">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Address(Village):</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <textarea name="address.village" rows="2" class="form-control pull-right" placeholder="Address"></textarea>
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group" ng-init="getMandals()">
+                <label>Mandal:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <select ng-model="url" class="form-control" name="address.mandal">
+                    <option ng-repeat="mandal in mandals" value="{{mandal.name}}">{{mandal.name}}</option>
+                  </select>
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Gender:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <select class="form-control pull-right" name="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Caste:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" name="caste" class="form-control pull-right" placeholder="Caste">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Income:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="number" name="income" class="form-control pull-right" placeholder="Income">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Disability:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <select class="form-control pull-right" name="disability">
+                    <option value="false">No</option>
+                    <option value="true">Yes</option>
+                  </select>
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Bank Name:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" name="bank.name" class="form-control pull-right" placeholder="Bank Name">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Bank IFSC Code:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" name="bank.ifsc" class="form-control pull-right" placeholder="Bank IFSC Code">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Bank Account No:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" name="bank.account" class="form-control pull-right" placeholder="Bank Account">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Applied Date:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" name="appliedDate" class="form-control pull-right" placeholder="DD/MM/YYYY">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <center><button type="submit" class="btn btn-success">Submit</button></center>
+              </div>
+              <!-- Date and time range -->
+            </div><!-- /.box-body -->
+          </form>
+        </div><!-- /.box -->
+    </div>
+  </div>
+</div>
+
+<%- include layouts/footer %>

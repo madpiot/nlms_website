@@ -1,0 +1,66 @@
+<%- include layouts/header %>
+        <!-- Main content -->
+        <section class="content" ng-controller="mainController">
+          <% if (mandalUrl) { %>
+          <script>
+            var mandalUrl = JSON.parse('<%- JSON.stringify(mandalUrl) %>');
+          </script>
+          <% } %>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box" style="padding-bottom: 5px;" ng-init="getMandals()">
+                <div class="box-body" ng-init="getList()" >
+                  <select ng-model="url" ng-change="loadMandal(url)">
+                    <option ng-repeat="mandal in mandals" value="{{mandal.url}}">{{mandal.name}}</option>
+                  </select>
+                  <div class="box-tools pull-right" style="padding-left: 5px;">
+                      <div class="has-feedback">
+                        <input type="text" ng-model="searchText" class="form-control input-sm" placeholder="Search List">
+                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                      </div>
+
+                    </div>
+                    &nbsp;<button type="button" class="btn btn-default pull-right" ng-click="printList()" name="button">Print</button>
+                    <a href="/dashboard/nlms/add-new" type="button" class="btn btn-default pull-right" name="button">Add One</a>
+                    <div class="pull-right" style="padding: 5px;">
+                      <span>Loaded: </span>&nbsp;<label>{{selectedList.length}}</label> total of: <label>{{total}}</label>
+                    </div>
+                  <table id="example1" class="ng-cloak table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>F-Name</th>
+                        <th>Aadhaar</th>
+                        <th>Mobile</th>
+                        <th>Address</th>
+                        <th>Gender</th>
+                        <th>Applied Date</th>
+                        <th>Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="data in selectedList=(dataList | filter:searchText | filter:status:true | orderBy: 'referenceID')">
+                        <td>{{data.referenceID}}</td>
+                        <td>{{data.name}}</td>
+                        <td>{{data.father}}</td>
+                        <td>{{data.aadhaar}}</td>
+                        <td>{{data.mobile}}</td>
+                        <td>{{data.address.village}}</td>
+                        <td>{{data.gender}}</td>
+                        <td>{{data.appliedDate}}</td>
+                        <td><button class="btn btn-default btn-sm btn-info" ng-click="print(data)"><i class="fa fa-print"></i></button> <a href="/dashboard/nlms/{{data._id}}" type="button" class="btn btn-success btn-sm" name="button">More>></a></td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                  <center ng-if="lastCount == -1 || lastCount == 100">
+                    <ul class="pagination">
+                      <li ng-click="loadMore()"><a href="">Load More</a></li>
+                    </ul>
+                  </center>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+﻿<%- include layouts/footer %>

@@ -25,14 +25,14 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-  <body class="hold-transition login-page">
+  <body class="hold-transition login-page" style="background-color: #008fb3;">
+    <a href="/" style="padding-left: 5%; margin-top: 20px !important;">
+      <img src="/images/2.png" alt="" style="padding-top: 10px;">
+    </a>
     <div class="login-box">
-      <div class="login-logo">
-        <a href="/"><b>NLMS</b> Details</a>
-      </div><!-- /.login-logo -->
       <div class="login-box-body">
         <p class="login-box-msg">Sign in to start your session</p>
-        <form action="/users/login" method="post">
+        <form action="/login" method="post">
           <div class="form-group has-feedback">
             <input type="email" name="username" class="form-control" placeholder="Username or Email">
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -41,6 +41,7 @@
             <input type="password" name="password" class="form-control" placeholder="Password">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
           </div>
+          <center><span style="color: red;"><%= error %></span></center>
           <div class="row">
             <div class="col-xs-4">
               <center><button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button></center>

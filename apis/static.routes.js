@@ -17,7 +17,7 @@ router.get('/login', function(req, res){
   if(req.session.user) {
     res.redirect("/dashboard");
   } else
-    res.render("login");
+    res.render("login", {error: ""});
 
 });
 

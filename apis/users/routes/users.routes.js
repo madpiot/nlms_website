@@ -5,7 +5,7 @@ import UserController from '../controllers/users.controller';
 
 let router = express.Router();
 
-router.post('/users/login', UserController.login);
+router.post('/login', UserController.login);
 
 router.get('/users/logout', UserController.logout);
 

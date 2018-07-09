@@ -39,14 +39,15 @@ const register = (req, res) => {
 const login = (req, res) => {
   let { username, password } = req.body;
   console.log(req.body);
-  if(username == "admin@nlms.com" && password == "nlms12345") {
+  if(username == "admin@nlms.co.in" && password == "nlms12345") {
     req.session.user = {
-      username: "admin@nlms.com",
+      username: "admin@nlms.co.in",
       name: "Admin"
     }
     res.redirect("/dashboard");
-  } else
-    res.redirect("/");
+  } else {
+    res.render("login", {error: "Invalid Credentials"});
+  }
 };
 
 const logout = (req, res) => {

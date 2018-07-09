@@ -32,14 +32,35 @@ angular.module('nlmsApp').controller("mainController", function($scope, Customer
   }
 
   $scope.getData = function() {
-    CustomersService.getDetails(id)
-    .then(function(response){
-      $scope.data = response.data.data;
-    })
+    if(id) {
+      CustomersService.getDetails(id)
+      .then(function(response){
+        $scope.data = response.data.data;
+        $scope.updateDate();
+      })
+    } else if(aadhaarNo) {
+      CustomersService.search({aadhaarNo: aadhaarNo})
+      .then(function(response){
+        $scope.data = response.data.data;
+        $scope.updateDate();
+      })
+    }
+  }
+
+  $scope.updateDate = function() {
+    if($scope.data.disability == true || $scope.data.disability == "true") {
+      $scope.data.disability = "true";
+    } else {
+      $scope.data.disability = "false";
+    }
+
+    $scope.getMandals();
   }
 
   $scope.print = function(data) {
-    PrintService.print(data)
+    var printableData = PrintService.validateSingle(data);
+    PrintService.print(printableData)
+
   }
 
   $scope.printList = function() {
@@ -49,6 +70,21 @@ angular.module('nlmsApp').controller("mainController", function($scope, Customer
   $scope.getMandals = function() {
     $scope.mandals = MandalsService.getMandals();
   }
+
+  $scope.update = function() {
+    var data = $scope.data;
+    var id = data._id;
+    delete data.id;
+    CustomersService.edit(id, data)
+    .then(function(response){
+      window.location.reload();
+    })
+  }
+
+  $scope.search = function() {
+    window.location.href = "/dashboard/search/"+$scope.aadhaarNo;
+  }
+
 
 });
 
@@ -89,6 +125,15 @@ angular.module('nlmsApp').service('PrintService', function(){
     mywindow.document.write("<tr><td>Aadhaar No</td><td>"+data.aadhaar+"</td></tr>");
     mywindow.document.write("<tr><td>Mobile No</td><td>"+data.mobile+"</td></tr>");
     mywindow.document.write("<tr><td>Address</td><td>"+data.address.village+"</td></tr>");
+    mywindow.document.write("<tr><td>Mandal</td><td>"+data.address.mandal+"</td></tr>");
+    mywindow.document.write("<tr><td>Proceeding No</td><td>"+data.proceeding.no+"</td></tr>");
+    mywindow.document.write("<tr><td>S.No. of Proceeding</td><td>"+data.proceeding.sNo+"</td></tr>");
+    mywindow.document.write("<tr><td>Grounding Date</td><td>"+data.grounding.date+"</td></tr>");
+    mywindow.document.write("<tr><td>Grounding Place</td><td>"+data.grounding.place+"</td></tr>");
+    mywindow.document.write("<tr><td>Seller Name</td><td>"+data.seller.name+"</td></tr>");
+    mywindow.document.write("<tr><td>Seller Father Name</td><td>"+data.seller.father+"</td></tr>");
+    mywindow.document.write("<tr><td>Seller Aadhaar No</td><td>"+data.seller.aadhaar+"</td></tr>");
+    mywindow.document.write("<tr><td>Seller Village</td><td>"+data.seller.village+"</td></tr>");
     mywindow.document.write("<tr><td>Gender</td><td>"+data.gender+"</td></tr>");
     mywindow.document.write("<tr><td>Caste</td><td>"+data.caste+"</td></tr>");
     mywindow.document.write("<tr><td>Income</td><td>"+data.income+"</td></tr>");
@@ -96,14 +141,65 @@ angular.module('nlmsApp').service('PrintService', function(){
     mywindow.document.write("<tr><td>Bank Name</td><td>"+data.bank.name+"</td></tr>");
     mywindow.document.write("<tr><td>Bank IFSC Code</td><td>"+data.bank.ifsc+"</td></tr>");
     mywindow.document.write("<tr><td>Bank Account No</td><td>"+data.bank.account+"</td></tr>");
+    mywindow.document.write("<tr><td>Amount Paid</td><td>"+data.amountPaid+"</td></tr>");
+    mywindow.document.write("<tr><td>Cheque No</td><td>"+data.chequeNo+"</td></tr>");
+    mywindow.document.write("<tr><td>Transporter Name</td><td>"+data.transporterName+"</td></tr>");
+    mywindow.document.write("<tr><td>Vehicle No</td><td>"+data.vehicleNo+"</td></tr>");
+    mywindow.document.write("<tr><td>Date of Transport</td><td>"+data.dateOfTransport+"</td></tr>");
     mywindow.document.write("<tr><td>Applied Date</td><td>"+data.appliedDate+"</td></tr>");
     mywindow.document.write("</table>");
-
     mywindow.document.write('</body></html>');
     mywindow.print();
     mywindow.close();
 
     return true;
+  }
+
+  printer.validateSingle = function validateSingle(data) {
+
+    return {
+      referenceID: data.referenceID || " ",
+      name: data.name || " ",
+      father: data.father || " ",
+      aadhaar: data.aadhaar || " ",
+      mobile: data.mobile || " ",
+      address: {
+        village: (data.address && data.address.village)?data.address.village:" ",
+        mandal: (data.address && data.address.mandal)?data.address.mandal:" ",
+        district: (data.address && data.address.district)?data.address.district:" "
+      },
+      proceeding: {
+        no: (data.proceeding && data.proceeding.no)?data.proceeding.no:" ",
+        sNo: (data.proceeding && data.proceeding.sNo)?data.proceeding.sNo:" "
+      },
+      gender: data.gender || " ", //male, female
+      caste: data.caste || " ",
+      income: data.income || " ",
+      disability: data.disability || " ",
+      grounding: {
+        date: (data.grounding && data.grounding.date)?data.grounding.date:" ",
+        place: (data.grounding && data.grounding.place)?data.grounding.place:" "
+      },
+      seller: {
+        name: (data.seller && data.seller.name)?data.seller.name:" ",
+        father: (data.seller && data.seller.father)?data.seller.father:" ",
+        aadhaar: (data.seller && data.seller.aadhaar)?data.seller.aadhaar:" ",
+        village: (data.seller && data.seller.village)?data.seller.village:" "
+      },
+      bank: {
+        name: (data.bank && data.bank.name)?data.bank.name:" ",
+        branch: (data.bank && data.bank.branch)?data.bank.branch:" ",
+        ifsc: (data.bank && data.bank.ifsc)?data.bank.ifsc:" ",
+        account: (data.bank && data.bank.account)?data.bank.account:" "
+      },
+      amountPaid: data.amountPaid || " ",
+      chequeNo: data.chequeNo || " ",
+      transporterName: data.transporterName || " ",
+      vehicleNo: data.vehicleNo || " ",
+      dateOfTransport: data.dateOfTransport || " ",
+      appliedDate: data.appliedDate || " ",
+      createdDate: data.createdDate || " "
+    }
   }
 
   return printer;
@@ -124,8 +220,12 @@ angular.module('nlmsApp').factory('CustomersService', function($http) {
       return $http.get('/customers/'+id);
     }
 
+    nlms.search = function search(data) {
+      return $http.post('/customers/search', data);
+    }
+
     nlms.edit = function edit(id, data){
-      return $http.post('/customers/edit/'+id, data);
+      return $http.put('/customers/'+id, data);
     }
 
 

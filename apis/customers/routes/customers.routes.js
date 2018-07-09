@@ -11,8 +11,10 @@ router.post('/customers/add', CustomersController.add);
 
 router.put('/customers/:userID', CustomersController.update);
 
-router.get('/customers/addmandal/:type', CustomersController.insertMandal);
+//router.get('/customers/addmandal/:type', CustomersController.insertMandal);
 
 router.get('/customers/:customerID', CustomersController.get);
+
+router.post('/customers/search', CustomersController.search);
 
 export default router;

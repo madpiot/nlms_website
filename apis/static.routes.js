@@ -10,16 +10,25 @@ import {
 } from './auth/auth.service';
 
 router.get('/', function(req, res){
+  res.render("index");
+});
+
+router.get('/login', function(req, res){
   if(req.session.user) {
     res.redirect("/dashboard");
   } else
-    res.render("index");
+    res.render("login");
 
 });
 
 router.get('/dashboard', isUser.authenticated, function(req, res) {
   res.render('dashboard', { title: 'User' });
 });
+
+router.get('/dashboard/mandals', isUser.authenticated, function(req, res) {
+  res.render('mandals', { title: 'User' });
+});
+
 
 router.get('/dashboard/list/:mandalUrl?', isUser.authenticated, function(req, res) {
   res.render('list', { title: 'User', mandalUrl: req.params.mandalUrl || "all" });
@@ -30,7 +39,15 @@ router.get('/dashboard/nlms/add-new', isUser.authenticated, function(req, res) {
 });
 
 router.get('/dashboard/nlms/:id', isUser.authenticated, function(req, res) {
-  res.render('details', { title: 'User', id: req.params.id });
+  res.render('details', { title: 'User', id: req.params.id, aadhaarNo: "" });
+});
+
+router.get('/dashboard/search/:aadhaarNo', isUser.authenticated, function(req, res) {
+  res.render('details', { title: 'User', aadhaarNo: req.params.aadhaarNo, id: "" });
+});
+
+router.post('/dashboard/search', isUser.authenticated, function(req, res) {
+  res.redirect("/dashboard/search/"+req.body.aadhaarNo)
 });
 
 export default router;

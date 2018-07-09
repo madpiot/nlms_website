@@ -1,4 +1,13 @@
 ﻿<%- include layouts/header %>
+<section class="content-header">
+  <h1>
+    Dashboard
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Search</li>
+  </ol>
+</section>
         <!-- Main content -->
         <section class="content" ng-controller="mainController">
           <div class="row">
@@ -7,17 +16,19 @@
                 <div class="box" style="padding-bottom: 5px;">
                   <div class="box-body" >
                     <div class="box-header">
-                      <center><h3 class="box-title">Mandals List</h3></center>
+                      <center><h3 class="box-title">Search with Aadhaar No</h3></center>
                     </div><!-- /.box-header -->
-                    <div class="box-body ng-cloak" ng-init="getMandals()">
-                      <table id="example2" class="table">
-                        <tbody>
-                          <tr ng-repeat="mandal in mandals track by $index">
-                            <td>{{$index + 1}}</td>
-                            <td><a href="/dashboard/list/{{mandal.url}}">{{mandal.name}}</a></td>
-                          </tr>
-                        </tbody>
-                      </table>
+                    <div class="box-body ng-cloak">
+                    <div class="form-group">
+                      <label>Aadhaar No:</label>
+                      <div class="input-group">
+                        <input type="number" ng-keyup="$event.keyCode == 13 ? search() : null" name="aadhaarNo" ng-model="aadhaarNo" class="form-control pull-right" placeholder="Please Enter Aadhaar No">
+                          <div class="input-group-addon">
+                            <a type="submit" href="/dashboard/search/{{aadhaarNo}}"><i class="fa fa-search"></i></a>
+                          </div>
+                      </div><!-- /.input group -->
+                    </div><!-- /.form group -->
+
                     </div>
                   </div><!-- /.box-body -->
                 </div><!-- /.box -->

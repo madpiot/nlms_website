@@ -1,5 +1,13 @@
 <%- include layouts/header %>
-
+<section class="content-header">
+  <h1>
+    Dashboard
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Create</li>
+  </ol>
+</section>
 <section class="content" ng-controller="mainController">
   <div class="row">
     <div class="col-xs-12">
@@ -71,6 +79,86 @@
                   <select ng-model="url" class="form-control" name="address.mandal">
                     <option ng-repeat="mandal in mandals" value="{{mandal.name}}">{{mandal.name}}</option>
                   </select>
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Proceeding No:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" name="proceeding.no" class="form-control pull-right" placeholder="Proceeding No">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>S.No of Proceeding:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" name="proceeding.sNo" class="form-control pull-right" placeholder="S.No of Proceeding">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Date of Grounding:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" name="grounding.date" class="form-control pull-right" placeholder="DD/MM/YYYY">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Place of Grounding:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" name="grounding.place" class="form-control pull-right" placeholder="Place of Grounding">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Seller Name:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" name="seller.name" class="form-control pull-right" placeholder="Seller Name">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Seller Father Name:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" name="seller.father" class="form-control pull-right" placeholder="Seller Father name">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Seller Village name:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" name="seller.village" class="form-control pull-right" placeholder="Seller Village name">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Seller Aadhaar No:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="number" name="seller.aadhaar" class="form-control pull-right" placeholder="Seller Aadhaar no">
                 </div><!-- /.input group -->
               </div><!-- /.form group -->
 
@@ -147,6 +235,56 @@
                     <i class="fa fa-clock-o"></i>
                   </div>
                   <input type="text" name="bank.account" class="form-control pull-right" placeholder="Bank Account">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Amount Paid:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="number" name="amountPaid" class="form-control pull-right" placeholder="Amount Paid">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Cheque No:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" name="chequeNo" class="form-control pull-right" placeholder="Cheque No">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Transporter Name:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" name="transporterName" class="form-control pull-right" placeholder="Transporter Name">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Vehicle No:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" name="vehicleNo" class="form-control pull-right" placeholder="Vehicle No">
+                </div><!-- /.input group -->
+              </div><!-- /.form group -->
+
+              <div class="form-group">
+                <label>Date of Transport:</label>
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" name="dateOfTransport" class="form-control pull-right" placeholder="DD/MM/YYYY">
                 </div><!-- /.input group -->
               </div><!-- /.form group -->
 

@@ -34,7 +34,11 @@
                       <button class="btn btn-default btn-sm btn-success" ng-click="print(data)"><i class="fa fa-print"></i></button>
                     </div>
                 </div>
+                <div class="box-body" ng-show="!data">
+                  <center><h4>No data found</h4></center>
+                </div>
               </div>
+
             </div>
             <div class="ng-cloak col-md-6 col-md-offset-3">
               <div class="box box-success">
@@ -427,7 +431,7 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row" ng-show="edit">
             <div class="ng-cloak col-md-6 col-md-offset-3 col-md-offset-3">
               <div class="">
                   <!-- time Picker -->
@@ -435,9 +439,7 @@
                     <center><button type="button" class="btn btn-success" ng-click="update()">Update</button></center>
                   </div>
                 </div><!-- /.box-body -->
-                <div class="box-body" ng-show="!data">
-                  <center><h4>No data found</h4></center>
-                </div>
+
               </div><!-- /.box -->
           </div><!-- /.row -->
         </section><!-- /.content -->

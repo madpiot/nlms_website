@@ -8,7 +8,6 @@
         <li class="active">List</li>
       </ol>
     </section>
-        <!-- Main content -->
         <section class="content" ng-controller="mainController">
           <% if (mandalUrl) { %>
           <script>
@@ -27,7 +26,6 @@
                         <input type="text" ng-model="searchText" class="form-control input-sm" placeholder="Search List">
                         <span class="glyphicon glyphicon-search form-control-feedback"></span>
                       </div>
-
                     </div>
                     &nbsp;<button type="button" class="btn btn-default pull-right" ng-click="printList()" name="button">Print</button>
                     <a href="/dashboard/nlms/add-new" type="button" class="btn btn-default pull-right" name="button">Add One</a>

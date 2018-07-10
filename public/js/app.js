@@ -119,6 +119,7 @@ angular.module('nlmsApp').service('PrintService', function(){
     mywindow.document.write('<html><body>');
     mywindow.document.write("<center><h4 style=\"background-color: #d7dfea;\">"+data.name+" Information</h4><center>");
     mywindow.document.write("<table>");
+    mywindow.document.write("<tr><td colspan='2'><b>Beneficiary Primary Details</b></td></tr>");
     mywindow.document.write("<tr><td>ID</td><td>"+data.referenceID+"</td></tr>");
     mywindow.document.write("<tr><td>Name</td><td>"+data.name+"</td></tr>");
     mywindow.document.write("<tr><td>Father Name</td><td>"+data.father+"</td></tr>");
@@ -126,27 +127,49 @@ angular.module('nlmsApp').service('PrintService', function(){
     mywindow.document.write("<tr><td>Mobile No</td><td>"+data.mobile+"</td></tr>");
     mywindow.document.write("<tr><td>Address</td><td>"+data.address.village+"</td></tr>");
     mywindow.document.write("<tr><td>Mandal</td><td>"+data.address.mandal+"</td></tr>");
-    mywindow.document.write("<tr><td>Proceeding No</td><td>"+data.proceeding.no+"</td></tr>");
-    mywindow.document.write("<tr><td>S.No. of Proceeding</td><td>"+data.proceeding.sNo+"</td></tr>");
-    mywindow.document.write("<tr><td>Grounding Date</td><td>"+data.grounding.date+"</td></tr>");
-    mywindow.document.write("<tr><td>Grounding Place</td><td>"+data.grounding.place+"</td></tr>");
-    mywindow.document.write("<tr><td>Seller Name</td><td>"+data.seller.name+"</td></tr>");
-    mywindow.document.write("<tr><td>Seller Father Name</td><td>"+data.seller.father+"</td></tr>");
-    mywindow.document.write("<tr><td>Seller Aadhaar No</td><td>"+data.seller.aadhaar+"</td></tr>");
-    mywindow.document.write("<tr><td>Seller Village</td><td>"+data.seller.village+"</td></tr>");
     mywindow.document.write("<tr><td>Gender</td><td>"+data.gender+"</td></tr>");
     mywindow.document.write("<tr><td>Caste</td><td>"+data.caste+"</td></tr>");
     mywindow.document.write("<tr><td>Income</td><td>"+data.income+"</td></tr>");
     mywindow.document.write("<tr><td>Disability</td><td>"+((data.disability)?"YES":"NO")+"</td></tr>");
+    mywindow.document.write("<tr><td>Applied Date</td><td>"+data.appliedDate+"</td></tr>");
+
+    mywindow.document.write("<tr><td colspan='2'><b>Beneficiary Bank Details</b></td></tr>");
     mywindow.document.write("<tr><td>Bank Name</td><td>"+data.bank.name+"</td></tr>");
+    mywindow.document.write("<tr><td>Branch Name</td><td>"+data.bank.branch+"</td></tr>");
     mywindow.document.write("<tr><td>Bank IFSC Code</td><td>"+data.bank.ifsc+"</td></tr>");
     mywindow.document.write("<tr><td>Bank Account No</td><td>"+data.bank.account+"</td></tr>");
-    mywindow.document.write("<tr><td>Amount Paid</td><td>"+data.amountPaid+"</td></tr>");
-    mywindow.document.write("<tr><td>Cheque No</td><td>"+data.chequeNo+"</td></tr>");
-    mywindow.document.write("<tr><td>Transporter Name</td><td>"+data.transporterName+"</td></tr>");
-    mywindow.document.write("<tr><td>Vehicle No</td><td>"+data.vehicleNo+"</td></tr>");
-    mywindow.document.write("<tr><td>Date of Transport</td><td>"+data.dateOfTransport+"</td></tr>");
-    mywindow.document.write("<tr><td>Applied Date</td><td>"+data.appliedDate+"</td></tr>");
+
+    mywindow.document.write("<tr><td colspan='2'><b>Subsidy Details</b></td></tr>");
+    mywindow.document.write("<tr><td>Beneficiary Contribution Amount</td><td>"+data.subsidy.benificiaryAmount+"</td></tr>");
+    mywindow.document.write("<tr><td>Proceeding No</td><td>"+data.subsidy.proceeding.no+"</td></tr>");
+    mywindow.document.write("<tr><td>S.No. of Proceeding</td><td>"+data.subsidy.proceeding.sNo+"</td></tr>");
+    mywindow.document.write("<tr><td>Subsidy Amount </td><td>"+data.subsidy.amount+"</td></tr>");
+
+    mywindow.document.write("<tr><td colspan='2'><b>Subsidy Details</b></td></tr>");
+    mywindow.document.write("<tr><td>Grounding Date</td><td>"+data.grounding.date+"</td></tr>");
+    mywindow.document.write("<tr><td>Grounding Place</td><td>"+data.grounding.place+"</td></tr>");
+
+    mywindow.document.write("<tr><td colspan='2'><b>Subsidy Details</b></td></tr>");
+    mywindow.document.write("<tr><td>Seller Name</td><td>"+data.seller.name+"</td></tr>");
+    mywindow.document.write("<tr><td>Seller Father Name</td><td>"+data.seller.father+"</td></tr>");
+    mywindow.document.write("<tr><td>Seller Aadhaar No</td><td>"+data.seller.aadhaar+"</td></tr>");
+    mywindow.document.write("<tr><td>Seller Village</td><td>"+data.seller.village+"</td></tr>");
+    mywindow.document.write("<tr><td>Seller Bank Name</td><td>"+data.seller.bank.name+"</td></tr>");
+    mywindow.document.write("<tr><td>Seller Bank Account</td><td>"+data.seller.bank.account+"</td></tr>");
+    mywindow.document.write("<tr><td>Seller Bank IFSC</td><td>"+data.seller.bank.ifsc+"</td></tr>");
+    mywindow.document.write("<tr><td>Seller Cheque No</td><td>"+data.seller.bank.chequeNo+"</td></tr>");
+    mywindow.document.write("<tr><td>Seller Amount</td><td>"+data.seller.amount+"</td></tr>");
+
+    mywindow.document.write("<tr><td colspan='2'><b>Transporter Details</b></td></tr>");
+    mywindow.document.write("<tr><td>Transporter Name</td><td>"+data.transport.name+"</td></tr>");
+    mywindow.document.write("<tr><td>Vehicle No</td><td>"+data.transport.vehicle+"</td></tr>");
+    mywindow.document.write("<tr><td>Date of Transport</td><td>"+data.transport.date+"</td></tr>");
+    mywindow.document.write("<tr><td>Transport Amount</td><td>"+data.transport.amount+"</td></tr>");
+
+    mywindow.document.write("<tr><td colspan='2'><b>Miscellaneous Details</b></td></tr>");
+    mywindow.document.write("<tr><td>Amount</td><td>"+data.miscellaneous.amount+"</td></tr>");
+    mywindow.document.write("<tr><td>Reason of Expense</td><td>"+data.miscellaneous.reason+"</td></tr>");
+
     mywindow.document.write("</table>");
     mywindow.document.write('</body></html>');
     mywindow.print();
@@ -156,7 +179,6 @@ angular.module('nlmsApp').service('PrintService', function(){
   }
 
   printer.validateSingle = function validateSingle(data) {
-
     return {
       referenceID: data.referenceID || " ",
       name: data.name || " ",
@@ -168,14 +190,30 @@ angular.module('nlmsApp').service('PrintService', function(){
         mandal: (data.address && data.address.mandal)?data.address.mandal:" ",
         district: (data.address && data.address.district)?data.address.district:" "
       },
-      proceeding: {
-        no: (data.proceeding && data.proceeding.no)?data.proceeding.no:" ",
-        sNo: (data.proceeding && data.proceeding.sNo)?data.proceeding.sNo:" "
-      },
       gender: data.gender || " ", //male, female
       caste: data.caste || " ",
       income: data.income || " ",
       disability: data.disability || " ",
+      proceeding: {
+        no: (data.proceeding && data.proceeding.no)?data.proceeding.no:" ",
+        sNo: (data.proceeding && data.proceeding.sNo)?data.proceeding.sNo:" "
+      },
+      appliedDate: data.appliedDate || " ",
+
+      bank: {
+        name: (data.bank && data.bank.name)?data.bank.name:" ",
+        branch: (data.bank && data.bank.branch)?data.bank.branch:" ",
+        ifsc: (data.bank && data.bank.ifsc)?data.bank.ifsc:" ",
+        account: (data.bank && data.bank.account)?data.bank.account:" "
+      },
+      subsidy: {
+        benificiaryAmount: (data.subsidy && data.subsidy.benificiaryAmount)?data.subsidy.benificiaryAmount:" ",
+        proceeding: {
+          no: (data.subsidy && data.subsidy.proceeding && data.subsidy.proceeding.no)?data.subsidy.proceeding.no:" ",
+          sNo: (data.subsidy && data.subsidy.proceeding && data.subsidy.proceeding.sNo)?data.subsidy.proceeding.sNo:" ",
+        },
+        amount: (data.subsidy && data.subsidy.amount)?data.subsidy.amount:" "
+      },
       grounding: {
         date: (data.grounding && data.grounding.date)?data.grounding.date:" ",
         place: (data.grounding && data.grounding.place)?data.grounding.place:" "
@@ -184,21 +222,25 @@ angular.module('nlmsApp').service('PrintService', function(){
         name: (data.seller && data.seller.name)?data.seller.name:" ",
         father: (data.seller && data.seller.father)?data.seller.father:" ",
         aadhaar: (data.seller && data.seller.aadhaar)?data.seller.aadhaar:" ",
-        village: (data.seller && data.seller.village)?data.seller.village:" "
+        village: (data.seller && data.seller.village)?data.seller.village:" ",
+        bank: {
+          name: (data.seller && data.seller.bank && data.seller.bank.name)?data.seller.bank.name:" ",
+          account: (data.seller && data.seller.bank && data.seller.bank.account)?data.seller.bank.account:" ",
+          ifsc: (data.seller && data.seller.bank && data.seller.bank.ifsc)?data.seller.bank.ifsc:" ",
+          chequeNo: (data.seller && data.seller.bank && data.seller.bank.chequeNo)?data.seller.bank.chequeNo:" ",
+        },
+        amount: (data.seller && data.seller.amount)?data.seller.amount:" ",
       },
-      bank: {
-        name: (data.bank && data.bank.name)?data.bank.name:" ",
-        branch: (data.bank && data.bank.branch)?data.bank.branch:" ",
-        ifsc: (data.bank && data.bank.ifsc)?data.bank.ifsc:" ",
-        account: (data.bank && data.bank.account)?data.bank.account:" "
+      transport: {
+        name: (data.transport && data.transport.name)?data.transport.name:" ",
+        vehicle: (data.transport && data.transport.vehicle)?data.transport.vehicle:" ",
+        date: (data.transport && data.transport.date)?data.transport.date:" ",
+        amount: (data.transport && data.transport.amount)?data.transport.amount:" ",
       },
-      amountPaid: data.amountPaid || " ",
-      chequeNo: data.chequeNo || " ",
-      transporterName: data.transporterName || " ",
-      vehicleNo: data.vehicleNo || " ",
-      dateOfTransport: data.dateOfTransport || " ",
-      appliedDate: data.appliedDate || " ",
-      createdDate: data.createdDate || " "
+      miscellaneous: {
+        amount: (data.miscellaneous && data.miscellaneous.amount)?data.miscellaneous.amount:" ",
+        reason: (data.miscellaneous && data.miscellaneous.reason)?data.miscellaneous.reason:" "
+      }
     }
   }
 

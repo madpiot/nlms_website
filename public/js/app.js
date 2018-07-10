@@ -3,7 +3,7 @@
 angular.module('nlmsApp', []);
 
 angular.module('nlmsApp').controller("mainController", function($scope, CustomersService, PrintService, MandalsService) {
-  $scope.lastCount = -1;
+  $scope.lastCount = -1, $scope.selected = [];
   $scope.getList = function() {
     CustomersService.get({mandalUrl: mandalUrl, limit: 100, lastReferenceID: 0})
     .then(function(response){
@@ -67,6 +67,10 @@ angular.module('nlmsApp').controller("mainController", function($scope, Customer
     PrintService.printList($scope.selectedList);
   }
 
+  $scope.printSelected = function() {
+    PrintService.printList($scope.selected);
+  }
+
   $scope.getMandals = function() {
     $scope.mandals = MandalsService.getMandals();
   }
@@ -83,6 +87,14 @@ angular.module('nlmsApp').controller("mainController", function($scope, Customer
 
   $scope.search = function() {
     window.location.href = "/dashboard/search/"+$scope.aadhaarNo;
+  }
+
+  $scope.checkSelected = function(data) {
+    let index = $scope.selected.map(function(customer) { return customer._id; }).indexOf(data._id);
+    if(index < 0)
+      $scope.selected.push(data);
+    else
+      $scope.selected.splice(index, 1);
   }
 
 

@@ -11,301 +11,458 @@
 <section class="content" ng-controller="mainController">
   <div class="row">
     <div class="col-xs-12">
-      <div class="col-md-6 col-md-offset-3">
-        <div class="box box-primary">
-          <div class="box-header">
-            <h3 class="box-title">Add New</h3>
+      <form action="/customers/add" method="post">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="box box-success">
+            <div class="box-header" style="background-color: #00a65a; color: white; font-weight: bold;">
+              <h4 class="box-title">Beneficiary Basic Details</h4>
+            </div>
+              <div class="box-body">
+                <!-- Date range -->
+                <div class="form-group">
+                  <label>Name:</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-user"></i>
+                    </div>
+                    <input type="text" name="name" class="form-control pull-right" placeholder="Name">
+                  </div><!-- /.input group -->
+                </div><!-- /.form group -->
+
+                <!-- Date and time range -->
+                <div class="form-group">
+                  <label>Father/Husband Name:</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <input type="text" name="father" class="form-control pull-right" placeholder="Father/Husband Name">
+                  </div><!-- /.input group -->
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                  <label>Aadhaar No:</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <input type="number" name="aadhaar" class="form-control pull-right" placeholder="Aadhaar No">
+                  </div><!-- /.input group -->
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                  <label>Mobile No:</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <input type="number" name="mobile" class="form-control pull-right" placeholder="Mobile">
+                  </div><!-- /.input group -->
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                  <label>Address(Village):</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <textarea name="address.village" rows="2" class="form-control pull-right" placeholder="Address"></textarea>
+                  </div><!-- /.input group -->
+                </div><!-- /.form group -->
+
+                <div class="form-group" ng-init="getMandals()">
+                  <label>Mandal:</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <select ng-model="url" class="form-control" name="address.mandal">
+                      <option ng-repeat="mandal in mandals" value="{{mandal.name}}">{{mandal.name}}</option>
+                    </select>
+                  </div><!-- /.input group -->
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                  <label>Gender:</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <select class="form-control pull-right" name="gender">
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div><!-- /.input group -->
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                  <label>Caste:</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <input type="text" name="caste" class="form-control pull-right" placeholder="Caste">
+                  </div><!-- /.input group -->
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                  <label>Income:</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <input type="number" name="income" class="form-control pull-right" placeholder="Income">
+                  </div><!-- /.input group -->
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                  <label>Disability:</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <select class="form-control pull-right" name="disability">
+                      <option value="false">No</option>
+                      <option value="true">Yes</option>
+                    </select>
+                  </div><!-- /.input group -->
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                  <label>Applied Date:</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <input type="text" name="appliedDate" class="form-control pull-right" placeholder="DD/MM/YYYY">
+                  </div><!-- /.input group -->
+                </div><!-- /.form group -->
+                <!-- Date and time range -->
+              </div><!-- /.box-body -->
+          </div><!-- /.box -->
+      </div>
+
+      <div class="ng-cloak col-md-6 col-md-offset-3">
+        <div class="box box-success">
+          <div class="box-header" style="background-color: #00a65a; color: white; font-weight: bold;">
+            <h4 class="box-title">Beneficiary Bank Details</h4>
           </div>
-          <form action="/customers/add" method="post">
-            <div class="box-body">
-              <!-- Date range -->
-              <div class="form-group">
-                <label>Name:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-user"></i>
-                  </div>
-                  <input type="text" name="name" class="form-control pull-right" placeholder="Name">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+          <div class="box-body">
 
-              <!-- Date and time range -->
-              <div class="form-group">
-                <label>Father/Husband Name:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="text" name="father" class="form-control pull-right" placeholder="Father/Husband Name">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+            <div class="form-group">
+              <label>Bank Name:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="bank.name" class="form-control pull-right" placeholder="Bank name">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
 
-              <div class="form-group">
-                <label>Aadhaar No:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="number" name="aadhaar" class="form-control pull-right" placeholder="Aadhaar No">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+            <div class="form-group">
+              <label>Bank Branch:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="bank.branch" class="form-control pull-right" placeholder="Bank Branch Name">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
 
-              <div class="form-group">
-                <label>Mobile No:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="number" name="mobile" class="form-control pull-right" placeholder="Mobile">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+            <div class="form-group">
+              <label>Bank IFSC:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="bank.ifsc" class="form-control pull-right" placeholder="Bank IFSC Code">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
 
-              <div class="form-group">
-                <label>Address(Village):</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <textarea name="address.village" rows="2" class="form-control pull-right" placeholder="Address"></textarea>
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+            <div class="form-group">
+              <label>Bank Account:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="bank.account" class="form-control pull-right" placeholder="Bank Account No">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
 
-              <div class="form-group" ng-init="getMandals()">
-                <label>Mandal:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <select ng-model="url" class="form-control" name="address.mandal">
-                    <option ng-repeat="mandal in mandals" value="{{mandal.name}}">{{mandal.name}}</option>
-                  </select>
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+          </div>
+        </div>
+      </div>
 
-              <div class="form-group">
-                <label>Proceeding No:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="text" name="proceeding.no" class="form-control pull-right" placeholder="Proceeding No">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
 
-              <div class="form-group">
-                <label>S.No of Proceeding:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="text" name="proceeding.sNo" class="form-control pull-right" placeholder="S.No of Proceeding">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+      <div class="ng-cloak col-md-6 col-md-offset-3">
+        <div class="box box-success">
+          <div class="box-header" style="background-color: #00a65a; color: white; font-weight: bold;">
+            <h4 class="box-title">Subsidy Details</h4>
+          </div>
+          <div class="box-body">
+            <div class="form-group">
+              <label>Beneficiary Contribution Amount:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="number" name="subsidy.benificiaryAmount" ng-model="data.subsidy.benificiaryAmount" class="form-control pull-right" placeholder="Beneficiary Contribution Amount">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
 
-              <div class="form-group">
-                <label>Date of Grounding:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="text" name="grounding.date" class="form-control pull-right" placeholder="DD/MM/YYYY">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+            <div class="form-group">
+              <label>Proceeding No:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="subsidy.proceeding.no" ng-model="data.subsidy.proceeding.no" class="form-control pull-right" placeholder="Proceeding No">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
 
-              <div class="form-group">
-                <label>Place of Grounding:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="text" name="grounding.place" class="form-control pull-right" placeholder="Place of Grounding">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+            <div class="form-group">
+              <label>S.No of Proceeding:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="subsidy.proceeding.sNo" ng-model="data.subsidy.proceeding.sNo" class="form-control pull-right" placeholder="S.No of Proceeding">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
 
-              <div class="form-group">
-                <label>Seller Name:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="text" name="seller.name" class="form-control pull-right" placeholder="Seller Name">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+            <div class="form-group">
+              <label>Subsidy Amount:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="number" name="subsidy.amount" ng-model="data.subsidy.amount" class="form-control pull-right" placeholder="Beneficiary Contribution Amount">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
 
-              <div class="form-group">
-                <label>Seller Father Name:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="text" name="seller.father" class="form-control pull-right" placeholder="Seller Father name">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+          </div>
+        </div>
+      </div>
 
-              <div class="form-group">
-                <label>Seller Village name:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="text" name="seller.village" class="form-control pull-right" placeholder="Seller Village name">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+      <div class="ng-cloak col-md-6 col-md-offset-3">
+        <div class="box box-success">
+          <div class="box-header" style="background-color: #00a65a; color: white; font-weight: bold;">
+            <h4 class="box-title">Grounding Details</h4>
+          </div>
+          <div class="box-body">
 
-              <div class="form-group">
-                <label>Seller Aadhaar No:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="number" name="seller.aadhaar" class="form-control pull-right" placeholder="Seller Aadhaar no">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+            <div class="form-group">
+              <label>Grounding Date:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="grounding.date" ng-model="data.grounding.date" class="form-control pull-right" placeholder="DD/MM/YYYY">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
 
-              <div class="form-group">
-                <label>Gender:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <select class="form-control pull-right" name="gender">
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                  </select>
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+            <div class="form-group">
+              <label>Grounding Place:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="grounding.place" ng-model="data.grounding.place" class="form-control pull-right" placeholder="Place of Grounding">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
 
-              <div class="form-group">
-                <label>Caste:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="text" name="caste" class="form-control pull-right" placeholder="Caste">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+          </div>
+        </div>
+      </div>
 
-              <div class="form-group">
-                <label>Income:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="number" name="income" class="form-control pull-right" placeholder="Income">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+      <div class="ng-cloak col-md-6 col-md-offset-3">
+        <div class="box box-success">
+          <div class="box-header" style="background-color: #00a65a; color: white; font-weight: bold;">
+            <h4 class="box-title">Seller Details</h4>
+          </div>
+          <div class="box-body">
 
-              <div class="form-group">
-                <label>Disability:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <select class="form-control pull-right" name="disability">
-                    <option value="false">No</option>
-                    <option value="true">Yes</option>
-                  </select>
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+            <div class="form-group">
+              <label>Seller Name:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="seller.name" ng-model="data.seller.name" class="form-control pull-right" placeholder="Seller Name">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
 
-              <div class="form-group">
-                <label>Bank Name:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="text" name="bank.name" class="form-control pull-right" placeholder="Bank Name">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+            <div class="form-group">
+              <label>Seller Father name:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="seller.father" ng-model="data.seller.father" class="form-control pull-right" placeholder="Seller Father name">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
 
-              <div class="form-group">
-                <label>Bank IFSC Code:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="text" name="bank.ifsc" class="form-control pull-right" placeholder="Bank IFSC Code">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+            <div class="form-group">
+              <label>Seller Village:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="seller.village" ng-model="data.seller.village" class="form-control pull-right" placeholder="Seller Village name">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
 
-              <div class="form-group">
-                <label>Bank Account No:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="text" name="bank.account" class="form-control pull-right" placeholder="Bank Account">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+            <div class="form-group">
+              <label>Seller Aadhaar No:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="number" name="seller.aadhaar" ng-model="data.seller.aadhaar" class="form-control pull-right" placeholder="Seller Aadhaar no">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
 
-              <div class="form-group">
-                <label>Amount Paid:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="number" name="amountPaid" class="form-control pull-right" placeholder="Amount Paid">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+            <div class="form-group">
+              <label>Seller Bank name:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="seller.bank.name" ng-model="data.seller.bank.name" class="form-control pull-right" placeholder="Seller Aadhaar no">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
 
-              <div class="form-group">
-                <label>Cheque No:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="text" name="chequeNo" class="form-control pull-right" placeholder="Cheque No">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+            <div class="form-group">
+              <label>Seller Account No:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="seller.bank.account" ng-model="data.seller.bank.account" class="form-control pull-right" placeholder="Seller Aadhaar no">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
 
-              <div class="form-group">
-                <label>Transporter Name:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="text" name="transporterName" class="form-control pull-right" placeholder="Transporter Name">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+            <div class="form-group">
+              <label>Seller IFSC Code:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="seller.bank.ifsc" ng-model="data.seller.bank.ifsc" class="form-control pull-right" placeholder="Seller Aadhaar no">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
 
-              <div class="form-group">
-                <label>Vehicle No:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="text" name="vehicleNo" class="form-control pull-right" placeholder="Vehicle No">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+            <div class="form-group">
+              <label>Cheque No:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="seller.bank.chequeNo" ng-model="data.seller.bank.chequeNo" class="form-control pull-right" placeholder="Cheque No">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
 
-              <div class="form-group">
-                <label>Date of Transport:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="text" name="dateOfTransport" class="form-control pull-right" placeholder="DD/MM/YYYY">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+            <div class="form-group">
+              <label>Seller Amount:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="number" name="seller.amount" ng-model="data.seller.amount" class="form-control pull-right" placeholder="Seller Aadhaar no">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
 
-              <div class="form-group">
-                <label>Applied Date:</label>
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-clock-o"></i>
-                  </div>
-                  <input type="text" name="appliedDate" class="form-control pull-right" placeholder="DD/MM/YYYY">
-                </div><!-- /.input group -->
-              </div><!-- /.form group -->
+          </div>
+        </div>
+      </div>
 
-              <div class="form-group">
-                <center><button type="submit" class="btn btn-success">Submit</button></center>
-              </div>
-              <!-- Date and time range -->
-            </div><!-- /.box-body -->
-          </form>
-        </div><!-- /.box -->
-    </div>
+      <div class="ng-cloak col-md-6 col-md-offset-3">
+        <div class="box box-success">
+          <div class="box-header" style="background-color: #00a65a; color: white; font-weight: bold;">
+            <h4 class="box-title">Transport Details</h4>
+          </div>
+          <div class="box-body">
+
+            <div class="form-group">
+              <label>Transporter Name:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="transport.name" ng-model="data.transport.name" class="form-control pull-right" placeholder="Transporter Name">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
+
+            <div class="form-group">
+              <label>Vehicle No:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="transport.vehicle" ng-model="data.transport.vehicle" class="form-control pull-right" placeholder="Vehicle No">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
+
+            <div class="form-group">
+              <label>Date of Transport:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="transport.date" ng-model="data.transport.date" class="form-control pull-right" placeholder="DD/MM/YYYY">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
+
+            <div class="form-group">
+              <label>Transport Amount:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="number" name="transport.amount" ng-model="data.transport.amount" class="form-control pull-right" placeholder="Transport amount">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
+
+          </div>
+        </div>
+      </div>
+
+      <div class="ng-cloak col-md-6 col-md-offset-3">
+        <div class="box box-success">
+          <div class="box-header" style="background-color: #00a65a; color: white; font-weight: bold;">
+            <h4 class="box-title">Miscellaneous Details</h4>
+          </div>
+          <div class="box-body">
+
+            <div class="form-group">
+              <label>Amount:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="number" name="miscellaneous.amount" ng-model="data.miscellaneous.amount" class="form-control pull-right" placeholder="Miscellaneous Amount">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
+
+            <div class="form-group">
+              <label>Reason for the Expense:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="text" name="miscellaneous.reason" ng-model="data.miscellaneous.reason" class="form-control pull-right" placeholder="Reason for the expense">
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
+
+          </div>
+        </div>
+        <div class="form-group">
+          <center><button type="submit" class="btn btn-success">Submit</button></center>
+        </div>
+      </div>
+
+
+    </form>
   </div>
 </div>
 

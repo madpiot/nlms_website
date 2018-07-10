@@ -22,12 +22,13 @@
                     <option ng-repeat="mandal in mandals" value="{{mandal.url}}">{{mandal.name}}</option>
                   </select>
                   <div class="box-tools pull-right" style="padding-left: 5px;">
-                      <div class="has-feedback">
-                        <input type="text" ng-model="searchText" class="form-control input-sm" placeholder="Search List">
-                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
-                      </div>
+                    <div class="has-feedback">
+                      <input type="text" ng-model="searchText" class="form-control input-sm" placeholder="Search List">
+                      <span class="glyphicon glyphicon-search form-control-feedback"></span>
                     </div>
-                    &nbsp;<button type="button" class="btn btn-default pull-right" ng-click="printList()" name="button">Print</button>
+                  </div>
+                    &nbsp;<button type="button" class="btn btn-default pull-right" ng-click="printSelected()" name="button">Print Selected</button>
+                    <button type="button" class="btn btn-default pull-right" ng-click="printList()" name="button">Print All</button>
                     <a href="/dashboard/nlms/add-new" type="button" class="btn btn-default pull-right" name="button">Add One</a>
                     <div class="pull-right" style="padding: 5px;">
                       <span>Loaded: </span>&nbsp;<label>{{selectedList.length}}</label> total of: <label>{{total}}</label>
@@ -35,6 +36,7 @@
                   <table id="example1" class="ng-cloak table table-bordered table-striped">
                     <thead>
                       <tr>
+                        <th></th>
                         <th>ID</th>
                         <th>Name</th>
                         <th>F-Name</th>
@@ -48,6 +50,7 @@
                     </thead>
                     <tbody>
                       <tr ng-repeat="data in selectedList=(dataList | filter:searchText | filter:status:true | orderBy: 'referenceID')">
+                        <td><input type="checkbox" name="" value="{{data}}" ng-value="data" ng-model="selected" ng-change="checkSelected(data)"></td>
                         <td>{{data.referenceID}}</td>
                         <td>{{data.name}}</td>
                         <td>{{data.father}}</td>

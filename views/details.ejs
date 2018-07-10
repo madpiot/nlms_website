@@ -24,14 +24,13 @@
           <div class="row">
             <div class="col-xs-12">
               <div class="row">
-            <div class="ng-cloak col-md-6 col-md-offset-3">
+            <div class="ng-cloak col-md-8 col-md-offset-2">
 
               <div class="box box-info" ng-init="getData()">
                 <div class="box-header"ng-show="data">
                   <h3 class="box-title text-sm-center">{{data.name}} details</h3>
                     <div class="btn-group pull-right">
-                      <button class="btn btn-default btn-sm btn-info" ng-click="edit = true"><i class="fa fa-edit"></i></button>
-                      <button class="btn btn-default btn-sm btn-success" ng-click="print(data)"><i class="fa fa-print"></i></button>
+                      <button class="btn btn-default btn-sm btn-success" ng-click="print(data)"><i class="fa fa-print"></i> Print</button>
                     </div>
                 </div>
                 <div class="box-body" ng-show="!data">
@@ -40,7 +39,7 @@
               </div>
 
             </div>
-            <div class="ng-cloak col-md-6 col-md-offset-3">
+            <div class="ng-cloak col-md-6">
               <div class="box box-success">
                 <div class="box-header" style="background-color: #00a65a; color: white; font-weight: bold;" style="background-color: #00a65a; color: white; font-weight: bold;" ng-show="data">
                   <h4 class="box-title">Beneficiary Primary Details</h4>
@@ -104,7 +103,7 @@
                     <span>{{data.disability}}</span>
                   </div><!-- /.form group -->
 
-                  <div class="form-group">
+                  <div class="form-group" style="margin-bottom: 55px;">
                     <label>Applied Date:</label>
                     <span>{{data.appliedDate}}</span>
                   </div><!-- /.form group -->
@@ -112,29 +111,29 @@
               </div>
             </div>
 
-            <div class="ng-cloak col-md-6 col-md-offset-3">
+            <div class="ng-cloak col-md-6">
               <div class="box box-success">
                 <div class="box-header" style="background-color: #00a65a; color: white; font-weight: bold;" ng-show="data">
                   <h4 class="box-title">Beneficiary Bank Details</h4>
                 </div>
                 <div class="box-body" ng-show="data">
 
-                  <div class="form-group">
+                  <div class="form-group" style="padding: 0px; margin: 0px;">
                     <label>Bank Name:</label>
                     <span>{{data.bank.name}}</span>
                   </div><!-- /.form group -->
 
-                  <div class="form-group">
+                  <div class="form-group" style="padding: 0px; margin: 0px;">
                     <label>Branch Name:</label>
                     <span>{{data.bank.branch}}</span>
                   </div><!-- /.form group -->
 
-                  <div class="form-group">
+                  <div class="form-group" style="padding: 0px; margin: 0px;">
                     <label>IFSC Code:</label>
                     <span>{{data.bank.ifsc}}</span>
                   </div><!-- /.form group -->
 
-                  <div class="form-group">
+                  <div class="form-group" style="padding: 0px; margin: 0px;">
                     <label>Account No:</label>
                     <span>{{data.bank.account}}</span>
                   </div><!-- /.form group -->
@@ -143,16 +142,19 @@
               </div>
             </div>
 
-            <div class="ng-cloak col-md-6 col-md-offset-3">
+            <div class="ng-cloak col-md-6">
               <div class="box box-success">
                 <div class="box-header" style="background-color: #00a65a; color: white; font-weight: bold;" ng-show="data">
                   <h4 class="box-title">Subsidy Details</h4>
+                  <div class="btn-group pull-right">
+                    <button class="btn btn-default btn-sm" ng-click="editSubsidy = true"><i class="fa fa-edit"></i></button>
+                  </div>
                 </div>
                 <div class="box-body" ng-show="data">
                   <div class="form-group">
                     <label>Beneficiary Contribution Amount:</label>
-                    <span ng-if="!edit">{{data.subsidy.benificiaryAmount}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editSubsidy">{{data.subsidy.benificiaryAmount}}</span>
+                    <div class="input-group" ng-if="editSubsidy">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
@@ -162,8 +164,8 @@
 
                   <div class="form-group">
                     <label>Proceeding No:</label>
-                    <span ng-if="!edit">{{data.subsidy.proceeding.no}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editSubsidy">{{data.subsidy.proceeding.no}}</span>
+                    <div class="input-group" ng-if="editSubsidy">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
@@ -173,8 +175,8 @@
 
                   <div class="form-group">
                     <label>S.No of Proceeding:</label>
-                    <span ng-if="!edit">{{data.subsidy.proceeding.sNo}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editSubsidy">{{data.subsidy.proceeding.sNo}}</span>
+                    <div class="input-group" ng-if="editSubsidy">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
@@ -184,30 +186,35 @@
 
                   <div class="form-group">
                     <label>Subsidy Amount:</label>
-                    <span ng-if="!edit">{{data.subsidy.amount}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editSubsidy">{{data.subsidy.amount}}</span>
+                    <div class="input-group" ng-if="editSubsidy">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
                       <input type="number" name="subsidy.amount" ng-model="data.subsidy.amount" class="form-control pull-right" placeholder="Beneficiary Contribution Amount">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
-
+                  <div class="form-group" ng-show="editSubsidy">
+                    <button class="btn btn-success btn-sm" ng-click="update()">Save</button>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="ng-cloak col-md-6 col-md-offset-3">
+            <div class="ng-cloak col-md-6">
               <div class="box box-success">
                 <div class="box-header" style="background-color: #00a65a; color: white; font-weight: bold;" ng-show="data">
                   <h4 class="box-title">Grounding Details</h4>
+                  <div class="btn-group pull-right">
+                    <button class="btn btn-default btn-sm" ng-click="editGrounding = true"><i class="fa fa-edit"></i></button>
+                  </div>
                 </div>
                 <div class="box-body" ng-show="data">
 
                   <div class="form-group">
                     <label>Grounding Date:</label>
-                    <span ng-if="!edit">{{data.grounding.date}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editGrounding">{{data.grounding.date}}</span>
+                    <div class="input-group" ng-if="editGrounding">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
@@ -217,14 +224,18 @@
 
                   <div class="form-group">
                     <label>Grounding Place:</label>
-                    <span ng-if="!edit">{{data.grounding.place}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editGrounding">{{data.grounding.place}}</span>
+                    <div class="input-group" ng-if="editGrounding">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
                       <input type="text" name="grounding.place" ng-model="data.grounding.place" class="form-control pull-right" placeholder="Place of Grounding">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
+
+                  <div class="form-group" ng-show="editGrounding">
+                    <button class="btn btn-success btn-sm" ng-click="update()">Save</button>
+                  </div>
 
                 </div>
               </div>
@@ -233,17 +244,20 @@
           </div>
           <div class="row">
 
-            <div class="ng-cloak col-md-6 col-md-offset-3">
+            <div class="ng-cloak col-md-6">
               <div class="box box-success">
                 <div class="box-header" style="background-color: #00a65a; color: white; font-weight: bold;" ng-show="data">
                   <h4 class="box-title">Seller Details</h4>
+                  <div class="btn-group pull-right">
+                    <button class="btn btn-default btn-sm" ng-click="editSeller = true"><i class="fa fa-edit"></i></button>
+                  </div>
                 </div>
                 <div class="box-body" ng-show="data">
 
                   <div class="form-group">
                     <label>Seller Name:</label>
-                    <span ng-if="!edit">{{data.seller.name}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editSeller">{{data.seller.name}}</span>
+                    <div class="input-group" ng-if="editSeller">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
@@ -253,8 +267,8 @@
 
                   <div class="form-group">
                     <label>Seller Father name:</label>
-                    <span ng-if="!edit">{{data.seller.father}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editSeller">{{data.seller.father}}</span>
+                    <div class="input-group" ng-if="editSeller">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
@@ -264,8 +278,8 @@
 
                   <div class="form-group">
                     <label>Seller Village:</label>
-                    <span ng-if="!edit">{{data.seller.village}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editSeller">{{data.seller.village}}</span>
+                    <div class="input-group" ng-if="editSeller">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
@@ -275,19 +289,19 @@
 
                   <div class="form-group">
                     <label>Seller Aadhaar No:</label>
-                    <span ng-if="!edit">{{data.seller.aadhaar}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editSeller">{{data.seller.aadhaar}}</span>
+                    <div class="input-group" ng-if="editSeller">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
-                      <input type="number" name="seller.aadhaar" ng-model="data.seller.aadhaar" class="form-control pull-right" placeholder="Seller Aadhaar no">
+                      <input type="aadhaar" name="seller.aadhaar" ng-model="data.seller.aadhaar" class="form-control pull-right" placeholder="Seller Aadhaar no">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
 
                   <div class="form-group">
                     <label>Seller Bank name:</label>
-                    <span ng-if="!edit">{{data.seller.bank.name}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editSeller">{{data.seller.bank.name}}</span>
+                    <div class="input-group" ng-if="editSeller">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
@@ -297,8 +311,8 @@
 
                   <div class="form-group">
                     <label>Seller Account No:</label>
-                    <span ng-if="!edit">{{data.seller.bank.account}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editSeller">{{data.seller.bank.account}}</span>
+                    <div class="input-group" ng-if="editSeller">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
@@ -308,8 +322,8 @@
 
                   <div class="form-group">
                     <label>Seller IFSC Code:</label>
-                    <span ng-if="!edit">{{data.seller.bank.ifsc}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editSeller">{{data.seller.bank.ifsc}}</span>
+                    <div class="input-group" ng-if="editSeller">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
@@ -319,8 +333,8 @@
 
                   <div class="form-group">
                     <label>Cheque No:</label>
-                    <span ng-if="!edit">{{data.seller.bank.chequeNo}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editSeller">{{data.seller.bank.chequeNo}}</span>
+                    <div class="input-group" ng-if="editSeller">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
@@ -330,8 +344,8 @@
 
                   <div class="form-group">
                     <label>Seller Amount:</label>
-                    <span ng-if="!edit">{{data.seller.amount}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editSeller">{{data.seller.amount}}</span>
+                    <div class="input-group" ng-if="editSeller">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
@@ -339,21 +353,28 @@
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
 
+                  <div class="form-group" ng-show="editSeller">
+                    <button class="btn btn-success btn-sm" ng-click="update()">Save</button>
+                  </div>
+
                 </div>
               </div>
             </div>
 
-            <div class="ng-cloak col-md-6 col-md-offset-3">
+            <div class="ng-cloak col-md-6">
               <div class="box box-success">
                 <div class="box-header" style="background-color: #00a65a; color: white; font-weight: bold;" ng-show="data">
                   <h4 class="box-title">Transport Details</h4>
+                  <div class="btn-group pull-right">
+                    <button class="btn btn-default btn-sm" ng-click="editTransport = true"><i class="fa fa-edit"></i></button>
+                  </div>
                 </div>
                 <div class="box-body" ng-show="data">
 
                   <div class="form-group">
                     <label>Transporter Name:</label>
-                    <span ng-if="!edit">{{data.transport.name}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editTransport">{{data.transport.name}}</span>
+                    <div class="input-group" ng-if="editTransport">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
@@ -363,8 +384,8 @@
 
                   <div class="form-group">
                     <label>Vehicle No:</label>
-                    <span ng-if="!edit">{{data.transport.vehicle}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editTransport">{{data.transport.vehicle}}</span>
+                    <div class="input-group" ng-if="editTransport">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
@@ -374,8 +395,8 @@
 
                   <div class="form-group">
                     <label>Date of Transport:</label>
-                    <span ng-if="!edit">{{data.transport.date}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editTransport">{{data.transport.date}}</span>
+                    <div class="input-group" ng-if="editTransport">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
@@ -385,8 +406,8 @@
 
                   <div class="form-group">
                     <label>Transport Amount:</label>
-                    <span ng-if="!edit">{{data.transport.amount}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editTransport">{{data.transport.amount}}</span>
+                    <div class="input-group" ng-if="editTransport">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
@@ -394,21 +415,28 @@
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
 
+                  <div class="form-group" ng-show="editTransport">
+                    <button class="btn btn-success btn-sm" ng-click="update()">Save</button>
+                  </div>
+
                 </div>
               </div>
             </div>
 
-            <div class="ng-cloak col-md-6 col-md-offset-3">
+            <div class="ng-cloak col-md-6">
               <div class="box box-success">
                 <div class="box-header" style="background-color: #00a65a; color: white; font-weight: bold;" ng-show="data">
                   <h4 class="box-title">Miscellaneous Details</h4>
+                  <div class="btn-group pull-right">
+                    <button class="btn btn-default btn-sm" ng-click="editMiscellaneous = true"><i class="fa fa-edit"></i></button>
+                  </div>
                 </div>
                 <div class="box-body" ng-show="data">
 
                   <div class="form-group">
                     <label>Amount:</label>
-                    <span ng-if="!edit">{{data.miscellaneous.amount}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editMiscellaneous">{{data.miscellaneous.amount}}</span>
+                    <div class="input-group" ng-if="editMiscellaneous">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
@@ -418,8 +446,8 @@
 
                   <div class="form-group">
                     <label>Reason for the Expense:</label>
-                    <span ng-if="!edit">{{data.miscellaneous.reason}}</span>
-                    <div class="input-group" ng-if="edit">
+                    <span ng-if="!editMiscellaneous">{{data.miscellaneous.reason}}</span>
+                    <div class="input-group" ng-if="editMiscellaneous">
                       <div class="input-group-addon">
                         <i class="fa fa-clock-o"></i>
                       </div>
@@ -427,12 +455,16 @@
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
 
+                  <div class="form-group" ng-show="editMiscellaneous">
+                    <button class="btn btn-success btn-sm" ng-click="update()">Save</button>
+                  </div>
+
                 </div>
               </div>
             </div>
           </div>
           <div class="row" ng-show="edit">
-            <div class="ng-cloak col-md-6 col-md-offset-3 col-md-offset-3">
+            <div class="ng-cloak col-md-6 col-md-offset-3">
               <div class="">
                   <!-- time Picker -->
                   <div class="form-group">

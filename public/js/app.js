@@ -202,6 +202,47 @@ angular.module('nlmsApp').controller("mainController", function($scope, Customer
     })
   }
 
+  $scope.downloadReports = function() {
+    var reports = [];
+    $scope.customers.forEach(function(report){
+      reports.push({
+        "ID": report.referenceID,
+        "Seller Name": (report.seller)?report.seller.name:" ",
+        "Seller Account": (report.seller && report.seller.bank)?report.seller.bank.account: " ",
+        "Seller IFSC": (report.seller && report.seller.bank)?report.seller.bank.ifsc: " ",
+        "Seller Bank Name": (report.seller && report.seller.bank)?report.seller.bank.name:" ",
+        "Seller Branch Name": (report.seller && report.seller.bank)?report.seller.bank.branch:" ",
+        "Amount": (report.seller)?report.seller.amount:" ",
+        "Beneficiary Village": report.address.village,
+        "Beneficiary Mandal": report.address.mandal,
+        "Date of Purchase": report.appliedDate
+      })
+    });
+
+    if(reports.length)
+      JSONToCSVConvertor(reports, "reports", true);
+  }
+
+  $scope.printReports = function() {
+    var reports = [];
+    $scope.customers.forEach(function(report){
+      reports.push({
+        "referenceID": report.referenceID,
+        "sellerName": (report.seller)?report.seller.name:" ",
+        "sellerAccount": (report.seller && report.seller.bank)?report.seller.bank.account: " ",
+        "sellerIFSC": (report.seller && report.seller.bank)?report.seller.bank.ifsc: " ",
+        "sellerBankName": (report.seller && report.seller.bank)?report.seller.bank.name:" ",
+        "sellerBranchName": (report.seller && report.seller.bank)?report.seller.bank.branch:" ",
+        "amount": (report.seller)?report.seller.amount:" ",
+        "beneficiaryVillage": report.address.village,
+        "beneficiaryMandal": report.address.mandal,
+        "dateOfPurchase": report.appliedDate
+      })
+    });
+    if(reports.length)
+      PrintService.printReport(reports);
+  }
+
   $scope.updateSeller = function() {
     SellerService.update($scope.seller)
     .then(function(response){
@@ -278,6 +319,25 @@ angular.module('nlmsApp').service('PrintService', function(){
       mywindow.document.write("<tr><td>"+d.referenceID+"</td><td>"+name+"</td><td>"+d.aadhaar+"<br/>"+d.mobile+"</td><td>"+village+"</td><td>"+d.gender+"<br/>"+d.caste+"</td><td>"+d.income+"<br/>"+disability+"</td><td>"+bank+"</td><td>"+d.bank.account+"</td><td>"+d.appliedDate+"</td></tr>");
     });
 
+    mywindow.document.write("</table>");
+
+    mywindow.document.write('</body></html>');
+    mywindow.print();
+    mywindow.close();
+
+    return true;
+  }
+
+  printer.printReport = function printReport(list) {
+    var mywindow = window.open();
+    mywindow.document.write('<html><body>');
+    mywindow.document.write("<center><h4>Data</h4><center>");
+
+    mywindow.document.write("<table>");
+    mywindow.document.write("<tr><td>ID</td><td>Seller Name</td><td>Seller Account</td><td>Seller IFSC</td><td>Seller Bank Name</td><td>Seller Branch Name</td><td>Amount</td><td>Beneficiary Village</td><td>Beneficiary Mandal</td><td>Date of Purchase</td></tr>");
+    list.forEach(function(data){
+      mywindow.document.write("<tr><td>"+data.referenceID+"</td><td>"+data.sellerName+"</td><td>"+data.sellerAccount+"</td><td>"+data.sellerIFSC+"</td><td>"+data.sellerBankName+"</td><td>"+data.sellerBranchName+"</td><td>"+data.amount+"</td><td>"+data.beneficiaryVillage+"</td><td>"+data.beneficiaryMandal+"</td><td>"+data.dateOfPurchase+"</td></tr>");
+    });
     mywindow.document.write("</table>");
 
     mywindow.document.write('</body></html>');

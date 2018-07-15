@@ -9,16 +9,20 @@
       </ol>
     </section>
         <section class="content" ng-controller="mainController">
+
           <div class="row">
             <div class="col-xs-12">
               <div class="box" style="padding-bottom: 5px;">
-                <div class="box-body" ng-init="getReports()" >
+
+                <div class="box-body ng-cloak" ng-init="getReports()" >
                   <div class="box-tools pull-right" style="padding-left: 5px;">
-                    <div class="has-feedback">
+                    <button ng-if="customers.length" type="button" class="btn btn-default" ng-click="downloadReports()" name="button"><i class="fa fa-download"></i>Dowload</button>
+                    <button ng-if="customers.length" type="button" class="btn btn-default" ng-click="printReports()" name="button"><i class="fa fa-print"></i>Print</button>
+                    <div class="has-feedback pull-right">
                       <form ng-submit="getReports()">
                         <input type="text" id="reportDate"  ng-model="reportDate" class="form-control" placeholder="DD/MM/YYYY">
                       </form>
-                      </div>
+                    </div>
                   </div>
                   <div ng-if="!customers.length" class="box-body">
                     <div class="box-tools" style="padding-left: 5px;">

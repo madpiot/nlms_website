@@ -55,6 +55,7 @@ const schema = new Schema({
       name: String,
       account: String,
       ifsc: String,
+      branch: String,
       chequeNo: String,
     },
     amount: Number

@@ -151,7 +151,7 @@ const getAll = (req, res) => {
   let { mandalUrl, limit, lastReferenceID } = req.body;
 
   let query = {};
-  if(mandalUrl != "all") {
+  if(mandalUrl && (mandalUrl != "all")) {
     let index = mandals.map(function(mandal) { return mandal.url; }).indexOf(mandalUrl);
     let mandalName = mandals[index].name;
     query = {

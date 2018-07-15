@@ -102,7 +102,7 @@ angular.module('nlmsApp').controller("mainController", function($scope, Customer
   }
 
   $scope.downloadList = function() {
-    download($scope.selectedList);
+    download($scope.selected);
   }
 
   $scope.downloadSelected = function() {
@@ -211,7 +211,6 @@ angular.module('nlmsApp').controller("mainController", function($scope, Customer
   }
 
   function JSONToCSVConvertor(JSONData, fileName, ShowLabel) {
-      console.log(JSONData.length);
       var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
       var CSV = '';
       CSV += '';
@@ -349,16 +348,16 @@ angular.module('nlmsApp').service('PrintService', function(){
     mywindow.document.write("<tr><td>Name</td><td>"+data.medicine.name+"</td></tr>");
     mywindow.document.write("<tr><td>Date</td><td>"+data.feedCost.date+"</td></tr>");
     mywindow.document.write("<tr><td>Amount</td><td>"+data.feedCost.amount+"</td></tr>");
+    if(data.unitCost) {
+      mywindow.document.write("<td><table><tr><td><b>Reimbursement Details</b></td></tr>");
+      mywindow.document.write("<tr><td>Unit Cost</td><td> INR: "+data.unitCost+"</td></tr>");
+      mywindow.document.write("<tr><td>Balance</td><td> INR: "+data.balance+"</td></tr>");
+      if(data.forBeneficiary)
+        mywindow.document.write("<tr><td>For Beneficiary</td><td> INR: "+data.forBeneficiary+"</td></tr>");
 
-    mywindow.document.write("<td><table><tr><td><b>Reimbursement Details</b></td></tr>");
-    mywindow.document.write("<tr><td>Unit Cost</td><td> INR: "+data.unitCost+"</td></tr>");
-    mywindow.document.write("<tr><td>Balance</td><td> INR: "+data.balance+"</td></tr>");
-    if(data.forBeneficiary)
-      mywindow.document.write("<tr><td>For Beneficiary</td><td> INR: "+data.forBeneficiary+"</td></tr>");
-
-    if(data.forGovt)
-      mywindow.document.write("<tr><td>For Governament</td><td> INR: "+data.forGovt+"</td></tr>");
-
+      if(data.forGovt)
+        mywindow.document.write("<tr><td>For Governament</td><td> INR: "+data.forGovt+"</td></tr>");
+    }
     mywindow.document.write("</table></td></tr></table>");
     mywindow.document.write('</body></html>');
     mywindow.print();

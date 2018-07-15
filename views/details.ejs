@@ -253,6 +253,19 @@
                   </div>
                 </div>
                 <div class="box-body" ng-show="data">
+                  <div class="form-group">
+                    <label>Seller Aadhaar No:</label>
+                    <span ng-if="!editSeller">{{data.seller.aadhaar}}</span>
+                    <div class="input-group" ng-if="editSeller">
+                      <div class="input-group-addon">
+                        <i class="fa fa-clock-o"></i>
+                      </div>
+                      <input type="number" name="seller.aadhaar" ng-model="data.seller.aadhaar" class="form-control pull-right" placeholder="Seller Aadhaar no">
+                      <div class="input-group-addon" ng-click="getSeller()">
+                        <i class="fa fa-search"></i>
+                      </div>
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
 
                   <div class="form-group">
                     <label>Seller Name:</label>
@@ -284,17 +297,6 @@
                         <i class="fa fa-clock-o"></i>
                       </div>
                       <input type="text" name="seller.village" ng-model="data.seller.village" class="form-control pull-right" placeholder="Seller Village name">
-                    </div><!-- /.input group -->
-                  </div><!-- /.form group -->
-
-                  <div class="form-group">
-                    <label>Seller Aadhaar No:</label>
-                    <span ng-if="!editSeller">{{data.seller.aadhaar}}</span>
-                    <div class="input-group" ng-if="editSeller">
-                      <div class="input-group-addon">
-                        <i class="fa fa-clock-o"></i>
-                      </div>
-                      <input type="aadhaar" name="seller.aadhaar" ng-model="data.seller.aadhaar" class="form-control pull-right" placeholder="Seller Aadhaar no">
                     </div><!-- /.input group -->
                   </div><!-- /.form group -->
 
@@ -529,7 +531,7 @@
             </div>
 
 
-            <div class="ng-cloak col-md-6">
+            <div class="ng-cloak col-md-6" ng-if="unitCost > 0">
               <div class="box box-info">
                 <div class="box-header" style="background-color: #00c0ef; color: white; font-weight: bold;" ng-show="data">
                   <h4 class="box-title">Reimbursement Panel</h4>

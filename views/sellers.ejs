@@ -1,0 +1,52 @@
+<%- include layouts/header %>
+    <section class="content-header">
+      <h1>
+        Dashboard
+      </h1>
+      <a href="/dashboard/sellers/add" class="btn btn-success"><i class="fa fa-plus"> Add New</i></a>
+      <ol class="breadcrumb">
+        <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">List</li>
+      </ol>
+    </section>
+        <section class="content" ng-controller="mainController">
+
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box" style="padding-bottom: 5px;" ng-init="getSellers()">
+                  <table id="example1" class="ng-cloak table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th>S.No</th>
+                        <th>Name</th>
+                        <th>F-Name</th>
+                        <th>Village</th>
+                        <th>Aadhaar</th>
+                        <th>Bank Name</th>
+                        <th>Bank Account No</th>
+                        <th>Bank IFSC</th>
+                        <th>Created At</th>
+                        <th>Details</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="seller in sellers track by $index">
+                        <td>{{$index + 1}}</td>
+                        <td>{{seller.name}}</td>
+                        <td>{{seller.father}}</td>
+                        <td>{{seller.village}}</td>
+                        <td>{{seller.aadhaar}}</td>
+                        <td>{{seller.bank.name}}</td>
+                        <td>{{seller.bank.account}}</td>
+                        <td>{{seller.bank.ifsc}}</td>
+                        <td>{{seller.createdDate}}</td>
+                        <td><a href="/dashboard/sellers/{{seller._id}}" type="button" class="btn btn-success btn-sm" name="button">More>></a></td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+﻿<%- include layouts/footer %>

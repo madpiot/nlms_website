@@ -1,0 +1,135 @@
+<%- include layouts/header %>
+    <section class="content-header">
+      <h1>
+        Dashboard
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Details</li>
+      </ol>
+    </section>
+        <!-- Main content -->
+        <section class="content" ng-controller="mainController">
+          <% if (sellerID) { %>
+          <script>
+            var sellerID = JSON.parse('<%- JSON.stringify(sellerID) %>');
+          </script>
+          <% } %>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="row">
+            <div class="ng-cloak col-md-8 col-md-offset-2">
+
+              <div class="box box-info" ng-init="getSellerData()">
+                <div class="box-header" ng-show="seller">
+                  <h3 class="box-title text-sm-center">{{seller.name}} details</h3>
+                  <div class="btn-group pull-right">
+                    <button class="btn btn-default btn-sm btn-success" ng-click="editSeller = true"><i class="fa fa-edit"></i> Edit</button>
+                  </div>
+                </div>
+                <div class="box-body" ng-show="!seller">
+                  <center><h4>No data found</h4></center>
+                </div>
+                <div class="box-body" ng-show = "seller">
+                  <!-- Date range -->
+                  <div class="form-group">
+                    <label>Name:</label>
+                    <span ng-show="!editSeller">{{seller.name}}</span>
+                    <div ng-show="editSeller" class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-user"></i>
+                      </div>
+                      <input type="text" name="name" ng-model="seller.name" class="form-control pull-right" placeholder="Name">
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+
+                  <!-- Date and time range -->
+                  <div class="form-group">
+                    <label>Father/Husband Name:</label>
+                    <span ng-show="!editSeller">{{seller.father}}</span>
+                    <div ng-show="editSeller" class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-clock-o"></i>
+                      </div>
+                      <input type="text" name="father" ng-model="seller.father" class="form-control pull-right" placeholder="Father/Husband Name">
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+
+                  <div class="form-group">
+                    <label>Aadhaar No:</label>
+                    <span ng-show="!editSeller">{{seller.aadhaar}}</span>
+                    <div ng-show="editSeller" class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-clock-o"></i>
+                      </div>
+                      <input type="text" name="aadhaar" ng-model="seller.aadhaar" class="form-control pull-right" placeholder="Aadhaar No">
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+
+                  <div class="form-group">
+                    <label>Village:</label>
+                    <span ng-show="!editSeller">{{seller.village}}</span>
+                    <div ng-show="editSeller" class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-clock-o"></i>
+                      </div>
+                      <input type="text" name="village" ng-model="seller.village" class="form-control pull-right" placeholder="Village">
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+
+                  <div class="form-group">
+                    <label>Bank Name:</label>
+                    <span ng-show="!editSeller">{{seller.bank.name}}</span>
+                    <div ng-show="editSeller" class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-clock-o"></i>
+                      </div>
+                      <input type="text" name="bank.name" ng-model="seller.bank.name" class="form-control pull-right" placeholder="Bank name">
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+
+                  <div class="form-group">
+                    <label>Bank IFSC:</label>
+                    <span ng-show="!editSeller">{{seller.bank.ifsc}}</span>
+                    <div ng-show="editSeller" class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-clock-o"></i>
+                      </div>
+                      <input type="text" name="bank.ifsc" ng-model="seller.bank.ifsc" class="form-control pull-right" placeholder="Bank IFSC Code">
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+
+                  <div class="form-group">
+                    <label>Bank Account:</label>
+                    <span ng-show="!editSeller">{{seller.bank.account}}</span>
+                    <div ng-show="editSeller" class="input-group">
+                      <div class="input-group-addon">
+                        <i class="fa fa-clock-o"></i>
+                      </div>
+                      <input type="text" name="bank.account" ng-model="seller.bank.account" class="form-control pull-right" placeholder="Bank Account No">
+                    </div><!-- /.input group -->
+                  </div><!-- /.form group -->
+
+
+                  <!-- Date and time range -->
+                </div><!-- /.box-body -->
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="row" ng-show="editSeller">
+            <div class="ng-cloak col-md-6 col-md-offset-3">
+              <div class="">
+                  <!-- time Picker -->
+                  <div class="form-group">
+                    <center><button type="button" class="btn btn-success" ng-click="updateSeller()">Update</button></center>
+                  </div>
+                </div><!-- /.box-body -->
+
+              </div><!-- /.box -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+
+﻿<%- include layouts/footer %>

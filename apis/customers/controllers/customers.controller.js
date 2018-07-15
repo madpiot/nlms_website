@@ -132,6 +132,20 @@ const search = (req, res) => {
   });
 }
 
+const getReports = (req, res) => {
+
+  let { date } = req.body;
+  console.log(req.body);
+  CustomersService.reports({appliedDate: date})
+  .then((response) => {
+    res.status(200).json({ error: "0", message: "Customers Data retrieved", data: response});
+  })
+  .catch(error => {
+    console.log(error);
+    res.status(500).json({error:'1',message:"Internal Sever Error"});
+  });
+}
+
 const getAll = (req, res) => {
 
   let { mandalUrl, limit, lastReferenceID } = req.body;
@@ -164,6 +178,7 @@ const getAll = (req, res) => {
 
 export default {
   add,
+  getReports,
   update,
   get,
   search,

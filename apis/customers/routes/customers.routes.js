@@ -7,6 +7,8 @@ let router = express.Router();
 
 router.post('/customers/get', CustomersController.getAll);
 
+router.post('/customers/reports', CustomersController.getReports);
+
 router.post('/customers/add', CustomersController.add);
 
 router.put('/customers/:userID', CustomersController.update);

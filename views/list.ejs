@@ -27,9 +27,10 @@
                       <span class="glyphicon glyphicon-search form-control-feedback"></span>
                     </div>
                   </div>
-                    &nbsp;<button type="button" class="btn btn-default pull-right" ng-click="printSelected()" name="button">Print Selected</button>
-                    <button type="button" class="btn btn-default pull-right" ng-click="printList()" name="button">Print All</button>
-                    <a href="/dashboard/nlms/add-new" type="button" class="btn btn-default pull-right" name="button">Add One</a>
+                    &nbsp;<button type="button" class="btn btn-default pull-right" ng-click="downloadSelected()" name="button"><i class="fa fa-download"></i>Download Selected</button>
+                    <button type="button" class="btn btn-default pull-right" ng-click="downloadList()" name="button"><i class="fa fa-download"></i>Dowload All</button>
+                    <button type="button" class="btn btn-default pull-right" ng-click="printSelected()" name="button"><i class="fa fa-print"></i>Print Selected</button>
+                    <button type="button" class="btn btn-default pull-right" ng-click="printList()" name="button"><i class="fa fa-print"></i>Print All</button>
                     <div class="pull-right" style="padding: 5px;">
                       <span>Loaded: </span>&nbsp;<label>{{selectedList.length}}</label> total of: <label>{{total}}</label>
                     </div>

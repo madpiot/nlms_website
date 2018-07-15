@@ -1,0 +1,110 @@
+<%- include layouts/header %>
+<section class="content-header">
+  <h1>
+    Dashboard
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Create</li>
+  </ol>
+</section>
+<section class="content" ng-controller="mainController">
+  <div class="row">
+    <div class="col-xs-12">
+      <form action="/sellers/add" method="post">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="box box-success">
+            <div class="box-header" style="background-color: #00a65a; color: white; font-weight: bold;">
+              <h4 class="box-title">Beneficiary Basic Details</h4>
+            </div>
+              <div class="box-body">
+                <!-- Date range -->
+                <div class="form-group">
+                  <label>Name:</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-user"></i>
+                    </div>
+                    <input type="text" name="name" class="form-control pull-right" placeholder="Name">
+                  </div><!-- /.input group -->
+                </div><!-- /.form group -->
+
+                <!-- Date and time range -->
+                <div class="form-group">
+                  <label>Father/Husband Name:</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <input type="text" name="father" class="form-control pull-right" placeholder="Father/Husband Name">
+                  </div><!-- /.input group -->
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                  <label>Aadhaar No:</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <input type="number" name="aadhaar" class="form-control pull-right" placeholder="Aadhaar No">
+                  </div><!-- /.input group -->
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                  <label>Village:</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <input type="text" name="village" class="form-control pull-right" placeholder="Village">
+                  </div><!-- /.input group -->
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                  <label>Bank Name:</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <input type="text" name="bank.name" class="form-control pull-right" placeholder="Bank name">
+                  </div><!-- /.input group -->
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                  <label>Bank IFSC:</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <input type="text" name="bank.ifsc" class="form-control pull-right" placeholder="Bank IFSC Code">
+                  </div><!-- /.input group -->
+                </div><!-- /.form group -->
+
+                <div class="form-group">
+                  <label>Bank Account:</label>
+                  <div class="input-group">
+                    <div class="input-group-addon">
+                      <i class="fa fa-clock-o"></i>
+                    </div>
+                    <input type="text" name="bank.account" class="form-control pull-right" placeholder="Bank Account No">
+                  </div><!-- /.input group -->
+                </div><!-- /.form group -->
+
+
+                <!-- Date and time range -->
+              </div><!-- /.box-body -->
+          </div><!-- /.box -->
+      </div>
+
+      <div class="ng-cloak col-md-12">
+        <div class="form-group">
+          <center><button type="submit" class="btn btn-success">Submit</button></center>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+</div>
+
+<%- include layouts/footer %>

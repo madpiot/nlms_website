@@ -29,6 +29,21 @@ router.get('/dashboard/mandals', isUser.authenticated, function(req, res) {
   res.render('mandals', { title: 'User' });
 });
 
+router.get('/dashboard/sellers', isUser.authenticated, function(req, res) {
+  res.render('sellers', { title: 'User' });
+});
+
+router.get('/dashboard/reports', isUser.authenticated, function(req, res) {
+  res.render('reports', { title: 'User', mandalUrl: '' });
+});
+
+router.get('/dashboard/sellers/add', isUser.authenticated, function(req, res) {
+  res.render('add_seller', { title: 'User' });
+});
+
+router.get('/dashboard/sellers/:sellerID', isUser.authenticated, function(req, res) {
+  res.render('seller_details', { title: 'User', sellerID: req.params.sellerID });
+});
 
 router.get('/dashboard/list/:mandalUrl?', isUser.authenticated, function(req, res) {
   res.render('list', { title: 'User', mandalUrl: req.params.mandalUrl || "all" });

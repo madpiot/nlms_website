@@ -281,6 +281,18 @@
             <h4 class="box-title">Seller Details</h4>
           </div>
           <div class="box-body">
+            <div class="form-group">
+              <label>Seller Aadhaar No:</label>
+              <div class="input-group">
+                <div class="input-group-addon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <input type="number" name="seller.aadhaar" ng-model="data.seller.aadhaar" class="form-control pull-right" placeholder="Seller Aadhaar no">
+                <div class="input-group-addon" ng-click="getSeller()">
+                  <i class="fa fa-search"></i>
+                </div>
+              </div><!-- /.input group -->
+            </div><!-- /.form group -->
 
             <div class="form-group">
               <label>Seller Name:</label>
@@ -312,15 +324,7 @@
               </div><!-- /.input group -->
             </div><!-- /.form group -->
 
-            <div class="form-group">
-              <label>Seller Aadhaar No:</label>
-              <div class="input-group">
-                <div class="input-group-addon">
-                  <i class="fa fa-clock-o"></i>
-                </div>
-                <input type="number" name="seller.aadhaar" ng-model="data.seller.aadhaar" class="form-control pull-right" placeholder="Seller Aadhaar no">
-              </div><!-- /.input group -->
-            </div><!-- /.form group -->
+
 
             <div class="form-group">
               <label>Seller Bank name:</label>
@@ -368,7 +372,7 @@
                 <div class="input-group-addon">
                   <i class="fa fa-clock-o"></i>
                 </div>
-                <input type="number" name="seller.amount" ng-model="data.seller.amount" class="form-control pull-right" placeholder="Seller Aadhaar no">
+                <input type="number" name="seller.amount" ng-model="data.seller.amount" class="form-control pull-right" placeholder="Seller Amount">
               </div><!-- /.input group -->
             </div><!-- /.form group -->
 
@@ -414,12 +418,12 @@
             </div><!-- /.form group -->
 
             <div class="form-group">
-              <label>Transport Amount:</label>
+              <label>Amount Paid:</label>
               <div class="input-group">
                 <div class="input-group-addon">
                   <i class="fa fa-clock-o"></i>
                 </div>
-                <input type="number" name="transport.amount" ng-model="data.transport.amount" class="form-control pull-right" placeholder="Transport amount">
+                <input type="number" name="transport.amount" ng-model="data.transport.amount" class="form-control pull-right" placeholder="Amount Paid">
               </div><!-- /.input group -->
             </div><!-- /.form group -->
 

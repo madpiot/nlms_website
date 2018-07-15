@@ -23,6 +23,7 @@ const schema = new Schema({
   income: {type: Number, default: 0},
   disability: {type: Boolean, default: false},
   appliedDate: String,
+  amountPaid: Number,
   //Beneficiary Bank Details
   bank: {
     name: String,
@@ -65,10 +66,17 @@ const schema = new Schema({
     date: String,
     amount: Number
   },
-  //Miscellaneous
-  miscellaneous: {
-    amount: Number,
-    reason: String
+  //Feed Cost Details
+  feedCost: {
+    quantity: Number,
+    date: String,
+    amount: Number
+  },
+  //Medicine
+  medicine: {
+    name: String,
+    date: String,
+    amount: Number
   },
   createdDate: {type: Date, default: Date.now }
 });

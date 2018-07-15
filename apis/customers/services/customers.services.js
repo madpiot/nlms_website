@@ -27,6 +27,21 @@ const find = (query, count) => {
   ]).exec();
 }
 
+const reports = (query) => {
+  return Customers.aggregate([{$match: query},
+    {
+      $project: {
+        "referenceID":1,
+        "seller": 1,
+        "address": 1,
+        "appliedDate": 1,
+        "transport":1,
+        "amountPaid": 1
+      }
+    }
+  ]).exec();
+}
+
 const count = (query) => {
   return Customers.count(query).exec();
 }
@@ -36,5 +51,6 @@ export default  {
   update,
   findOne,
   find,
-  count
+  count,
+  reports
 };

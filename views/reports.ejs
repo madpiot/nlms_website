@@ -1,0 +1,69 @@
+<%- include layouts/header %>
+    <section class="content-header">
+      <h1>
+        Dashboard
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="/dashboard"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">List</li>
+      </ol>
+    </section>
+        <section class="content" ng-controller="mainController">
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="box" style="padding-bottom: 5px;">
+                <div class="box-body" ng-init="getReports()" >
+                  <div class="box-tools pull-right" style="padding-left: 5px;">
+                    <div class="has-feedback">
+                      <form ng-submit="getReports()">
+                        <input type="text" id="reportDate"  ng-model="reportDate" class="form-control" placeholder="DD/MM/YYYY">
+                      </form>
+                      </div>
+                  </div>
+                  <div ng-if="!customers.length" class="box-body">
+                    <div class="box-tools" style="padding-left: 5px;">
+                      <center><h4>No reports found</h4></div>
+                    </div>
+                  </div>
+                  </div>
+                  <div class="box-body">
+                    <div class="box-tools">
+                      <table ng-if="customers.length" id="example1" class="ng-cloak table table-bordered table-striped">
+                        <thead>
+                          <tr>
+                            <th>ID</th>
+                            <th>Seller Name</th>
+                            <th>Seller Account</th>
+                            <th>Seller IFSC</th>
+                            <th>Bank name</th>
+                            <th>Branch Name</th>
+                            <th>Amount</th>
+                            <th>Beneficiary village</th>
+                            <th>Beneficiary Mandal</th>
+                            <th>Date of Purchase</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-repeat="data in customers">
+                            <td>{{data.referenceID}}</td>
+                            <td>{{data.seller.name}}</td>
+                            <td>{{data.seller.bank.account}}</td>
+                            <td>{{data.seller.bank.ifsc}}</td>
+                            <td>{{data.seller.bank.name}}</td>
+                            <td>{{data.seller.bank.branh}}</td>
+                            <td>{{data.amountPaid}}</td>
+                            <td>{{data.address.village}}</td>
+                            <td>{{data.address.mandal}}</td>
+                            <td>{{data.appliedDate}}</td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                      </div>
+                    </div>
+
+                </div><!-- /.box-body -->
+              </div><!-- /.box -->
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </section><!-- /.content -->
+﻿<%- include layouts/footer %>

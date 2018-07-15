@@ -2,7 +2,7 @@
 
 angular.module('nlmsApp', []);
 
-angular.module('nlmsApp').controller("mainController", function($scope, CustomersService, PrintService, MandalsService) {
+angular.module('nlmsApp').controller("mainController", function($scope, CustomersService, PrintService, MandalsService, SellerService) {
   $scope.lastCount = -1, $scope.selected = [];
   $scope.getList = function() {
     CustomersService.get({mandalUrl: mandalUrl, limit: 100, lastReferenceID: 0})
@@ -31,6 +31,30 @@ angular.module('nlmsApp').controller("mainController", function($scope, Customer
     }
   }
 
+  $scope.keypress = function ($event){
+     if ($event.which == 13){
+        $scope.getReports()
+     }
+  }
+
+  $scope.getReports = function() {
+    if(!$scope.reportDate) {
+      var date = new Date();
+      var day = date.getDate();
+      var month = date.getMonth() + 1;
+      var year = date.getFullYear();
+      if(day < 10)
+        day = "0"+day;
+      if(month < 10)
+        month = "0"+month;
+      $scope.reportDate = day+"/"+month+"/"+year;
+    }
+    CustomersService.reports($scope.reportDate)
+    .then(function(response){
+      $scope.customers = response.data.data;
+    })
+  }
+
   $scope.getData = function() {
     if(id) {
       CustomersService.getDetails(id)
@@ -54,7 +78,13 @@ angular.module('nlmsApp').controller("mainController", function($scope, Customer
       $scope.data.disability = "false";
     }
 
+    $scope.unitCost = getUnitCost();
+    $scope.balance = 125000 - $scope.unitCost;
     $scope.getMandals();
+  }
+
+  function getUnitCost() {
+    return (($scope.data.seller &&$scope.data.seller.amount)?$scope.data.seller.amount:0)+(($scope.data.transport)?$scope.data.transport.amount:0)+ (($scope.data.feedCost)?$scope.data.feedCost.amount:0)+ (($scope.data.medicine)?$scope.data.medicine.amount:0);
   }
 
   $scope.print = function(data) {
@@ -69,6 +99,58 @@ angular.module('nlmsApp').controller("mainController", function($scope, Customer
 
   $scope.printSelected = function() {
     PrintService.printList($scope.selected);
+  }
+
+  $scope.downloadList = function() {
+    download($scope.selectedList);
+  }
+
+  $scope.downloadSelected = function() {
+    download($scope.selected);
+  }
+
+  function download(list) {
+    var data = [];
+    list.forEach(function (selected) {
+        selected = PrintService.validateSingle(selected);
+        data.push({
+          "Reference ID": selected.referenceID,
+          "Beneficiary Name": selected.name || "",
+          "Beneficiary Father": selected.father || "",
+          "Beneficiary Aadhaar": selected.aadhaar || "",
+          "Beneficiary Mobile": selected.mobile || "",
+          "Beneficiary Address": selected.address.village || "",
+          "Beneficiary Mandal": selected.address.mandal || "",
+          "Gender": selected.gender || "",
+          "Caste": selected.caste || "",
+          "Income": selected.income || "",
+          "Disability": selected.disability || "",
+          "Applied Date": selected.appliedDate || "",
+          "Beneficiary Bank Name": selected.bank.name || "",
+          "Beneficiary Bank Branch": selected.bank.branch || "",
+          "Beneficiary Bank IFSC": selected.bank.ifsc || "",
+          "Beneficiary Bank Account": selected.bank.account || "",
+          "Subsidy: Beneficiary amount": selected.subsidy.amount || "",
+          "Subsidy: Proceeding No": selected.subsidy.proceeding.no || "",
+          "Subsidy: Proceeding S.No": selected.subsidy.proceeding.sNo || "",
+          "Grounding Date": selected.grounding.date || "",
+          "Grounding Place": selected.grounding.place || "",
+          "Seller Name": selected.seller.name || "",
+          "Seller Father name": selected.seller.father || "",
+          "Seller Aadhaar": selected.seller.aadhaar || "",
+          "Seller Village": selected.seller.village || "",
+          "Seller Bank Name": selected.seller.bank.name || "",
+          "Seller Bank Account": selected.seller.bank.account || "",
+          "Seller Bank IFSC": selected.seller.bank.ifsc || "",
+          "Seller Bank Cheque": selected.seller.bank.chequeNo || "",
+          "Seller Amount": selected.seller.amount || "",
+          "Transporter Amount": selected.transport.name || "",
+          "Transporter Vehicle No": selected.transport.vehicle || "",
+          "Transport Date": selected.transport.date || "",
+          "Amount Paid": selected.transport.amount || ""
+        })
+    });
+    JSONToCSVConvertor(data, "selected_list", true);
   }
 
   $scope.getMandals = function() {
@@ -95,6 +177,86 @@ angular.module('nlmsApp').controller("mainController", function($scope, Customer
       $scope.selected.push(data);
     else
       $scope.selected.splice(index, 1);
+  }
+
+  $scope.getSeller = function() {
+    if($scope.data && $scope.data.seller && $scope.data.seller.aadhaar) {
+      SellerService.search({aadhaar: $scope.data.seller.aadhaar})
+      .then(function(response){
+        $scope.data.seller = response.data.data;
+      });
+    }
+  }
+
+  $scope.getSellers = function() {
+    SellerService.get()
+    .then(function(response){
+      $scope.sellers = response.data.data;
+    });
+  }
+
+  $scope.getSellerData = function() {
+    SellerService.getSellerData(sellerID)
+    .then(function(response){
+      $scope.seller = response.data.data;
+    })
+  }
+
+  $scope.updateSeller = function() {
+    SellerService.update($scope.seller)
+    .then(function(response){
+      $scope.seller = response.data.data;
+      window.location.reload();
+    })
+  }
+
+  function JSONToCSVConvertor(JSONData, fileName, ShowLabel) {
+      console.log(JSONData.length);
+      var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
+      var CSV = '';
+      CSV += '';
+
+      if (ShowLabel) {
+          var row = "";
+
+          for (var index in arrData[0]) {
+
+              row += index + ',';
+          }
+
+          row = row.slice(0, -1);
+
+          CSV += row + '\r\n';
+      }
+
+      for (var i = 0; i < arrData.length; i++) {
+          var row = "";
+
+          for (var index in arrData[i]) {
+              row += '"' + arrData[i][index] + '",';
+          }
+
+          row.slice(0, row.length - 1);
+
+          CSV += row + '\r\n';
+      }
+
+      if (CSV == '') {
+          alert("Invalid data");
+          return;
+      }
+
+      var uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
+
+      var link = document.createElement("a");
+      link.href = uri;
+
+      link.style = "visibility:hidden";
+      link.download = fileName + ".csv";
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
   }
 
 
@@ -129,9 +291,9 @@ angular.module('nlmsApp').service('PrintService', function(){
   printer.print = function print(data){
     var mywindow = window.open();
     mywindow.document.write('<html><body>');
-    mywindow.document.write("<center><h4 style=\"background-color: #d7dfea;\">"+data.name+" Information</h4><center>");
-    mywindow.document.write("<table>");
-    mywindow.document.write("<tr><td colspan='2'><b>Beneficiary Primary Details</b></td></tr>");
+    mywindow.document.write("<center><h4>"+data.name+" Details</h4></center>");
+    mywindow.document.write("<table><tr><td><table>");
+    mywindow.document.write("<tr><td><b>Beneficiary Primary Details</b></td></tr>");
     mywindow.document.write("<tr><td>ID</td><td>"+data.referenceID+"</td></tr>");
     mywindow.document.write("<tr><td>Name</td><td>"+data.name+"</td></tr>");
     mywindow.document.write("<tr><td>Father Name</td><td>"+data.father+"</td></tr>");
@@ -143,25 +305,25 @@ angular.module('nlmsApp').service('PrintService', function(){
     mywindow.document.write("<tr><td>Caste</td><td>"+data.caste+"</td></tr>");
     mywindow.document.write("<tr><td>Income</td><td>"+data.income+"</td></tr>");
     mywindow.document.write("<tr><td>Disability</td><td>"+((data.disability)?"YES":"NO")+"</td></tr>");
-    mywindow.document.write("<tr><td>Applied Date</td><td>"+data.appliedDate+"</td></tr>");
+    mywindow.document.write("<tr><td>Applied Date</td><td>"+data.appliedDate+"</td></tr></table><td>");
 
-    mywindow.document.write("<tr><td colspan='2'><b>Beneficiary Bank Details</b></td></tr>");
+    mywindow.document.write("<td><table><tr><td><b>Beneficiary Bank Details</b></td></tr>");
     mywindow.document.write("<tr><td>Bank Name</td><td>"+data.bank.name+"</td></tr>");
     mywindow.document.write("<tr><td>Branch Name</td><td>"+data.bank.branch+"</td></tr>");
     mywindow.document.write("<tr><td>Bank IFSC Code</td><td>"+data.bank.ifsc+"</td></tr>");
     mywindow.document.write("<tr><td>Bank Account No</td><td>"+data.bank.account+"</td></tr>");
 
-    mywindow.document.write("<tr><td colspan='2'><b>Subsidy Details</b></td></tr>");
+    mywindow.document.write("<tr><td><b>Subsidy Details</b></td></tr>");
     mywindow.document.write("<tr><td>Beneficiary Contribution Amount</td><td>"+data.subsidy.benificiaryAmount+"</td></tr>");
     mywindow.document.write("<tr><td>Proceeding No</td><td>"+data.subsidy.proceeding.no+"</td></tr>");
     mywindow.document.write("<tr><td>S.No. of Proceeding</td><td>"+data.subsidy.proceeding.sNo+"</td></tr>");
     mywindow.document.write("<tr><td>Subsidy Amount </td><td>"+data.subsidy.amount+"</td></tr>");
 
-    mywindow.document.write("<tr><td colspan='2'><b>Subsidy Details</b></td></tr>");
+    mywindow.document.write("<tr><td><b>Grounding Details</b></td></tr>");
     mywindow.document.write("<tr><td>Grounding Date</td><td>"+data.grounding.date+"</td></tr>");
-    mywindow.document.write("<tr><td>Grounding Place</td><td>"+data.grounding.place+"</td></tr>");
+    mywindow.document.write("<tr><td>Grounding Place</td><td>"+data.grounding.place+"</td></tr></table></td></tr>");
 
-    mywindow.document.write("<tr><td colspan='2'><b>Subsidy Details</b></td></tr>");
+    mywindow.document.write("<tr><td><table><tr><td><b>Seller Details</b></td></tr>");
     mywindow.document.write("<tr><td>Seller Name</td><td>"+data.seller.name+"</td></tr>");
     mywindow.document.write("<tr><td>Seller Father Name</td><td>"+data.seller.father+"</td></tr>");
     mywindow.document.write("<tr><td>Seller Aadhaar No</td><td>"+data.seller.aadhaar+"</td></tr>");
@@ -170,19 +332,34 @@ angular.module('nlmsApp').service('PrintService', function(){
     mywindow.document.write("<tr><td>Seller Bank Account</td><td>"+data.seller.bank.account+"</td></tr>");
     mywindow.document.write("<tr><td>Seller Bank IFSC</td><td>"+data.seller.bank.ifsc+"</td></tr>");
     mywindow.document.write("<tr><td>Seller Cheque No</td><td>"+data.seller.bank.chequeNo+"</td></tr>");
-    mywindow.document.write("<tr><td>Seller Amount</td><td>"+data.seller.amount+"</td></tr>");
+    mywindow.document.write("<tr><td>Seller Amount</td><td>"+data.seller.amount+"</td></tr></table></td>");
 
-    mywindow.document.write("<tr><td colspan='2'><b>Transporter Details</b></td></tr>");
+    mywindow.document.write("<td><table><tr><td><b>Transporter Details</b></td></tr>");
     mywindow.document.write("<tr><td>Transporter Name</td><td>"+data.transport.name+"</td></tr>");
     mywindow.document.write("<tr><td>Vehicle No</td><td>"+data.transport.vehicle+"</td></tr>");
     mywindow.document.write("<tr><td>Date of Transport</td><td>"+data.transport.date+"</td></tr>");
-    mywindow.document.write("<tr><td>Transport Amount</td><td>"+data.transport.amount+"</td></tr>");
+    mywindow.document.write("<tr><td>Amount Paid</td><td>"+data.transport.amount+"</td></tr>");
 
-    mywindow.document.write("<tr><td colspan='2'><b>Miscellaneous Details</b></td></tr>");
-    mywindow.document.write("<tr><td>Amount</td><td>"+data.miscellaneous.amount+"</td></tr>");
-    mywindow.document.write("<tr><td>Reason of Expense</td><td>"+data.miscellaneous.reason+"</td></tr>");
+    mywindow.document.write("<tr><td><b>Feed Cost Details</b></td></tr>");
+    mywindow.document.write("<tr><td>Quantity</td><td>"+data.feedCost.quantity+"</td></tr>");
+    mywindow.document.write("<tr><td>Date</td><td>"+data.feedCost.date+"</td></tr>");
+    mywindow.document.write("<tr><td>Amount</td><td>"+data.feedCost.amount+"</td></tr></table></td>");
 
-    mywindow.document.write("</table>");
+    mywindow.document.write("<td><table><tr><td><b>Medicine Supply Details</b></td></tr>");
+    mywindow.document.write("<tr><td>Name</td><td>"+data.medicine.name+"</td></tr>");
+    mywindow.document.write("<tr><td>Date</td><td>"+data.feedCost.date+"</td></tr>");
+    mywindow.document.write("<tr><td>Amount</td><td>"+data.feedCost.amount+"</td></tr>");
+
+    mywindow.document.write("<td><table><tr><td><b>Reimbursement Details</b></td></tr>");
+    mywindow.document.write("<tr><td>Unit Cost</td><td> INR: "+data.unitCost+"</td></tr>");
+    mywindow.document.write("<tr><td>Balance</td><td> INR: "+data.balance+"</td></tr>");
+    if(data.forBeneficiary)
+      mywindow.document.write("<tr><td>For Beneficiary</td><td> INR: "+data.forBeneficiary+"</td></tr>");
+
+    if(data.forGovt)
+      mywindow.document.write("<tr><td>For Governament</td><td> INR: "+data.forGovt+"</td></tr>");
+
+    mywindow.document.write("</table></td></tr></table>");
     mywindow.document.write('</body></html>');
     mywindow.print();
     mywindow.close();
@@ -191,6 +368,7 @@ angular.module('nlmsApp').service('PrintService', function(){
   }
 
   printer.validateSingle = function validateSingle(data) {
+    var unitCost = ((data.seller && parseInt(data.seller.amount))?data.seller.amount:0)+((data.transport && parseInt(data.transport.amount))?data.transport.amount:0)+ ((data.feedCost && parseInt(data.feedCost.amount))?data.feedCost.amount:0)+ ((data.medicine && parseInt(data.medicine.amount))?data.medicine.amount:0);
     return {
       referenceID: data.referenceID || " ",
       name: data.name || " ",
@@ -249,10 +427,20 @@ angular.module('nlmsApp').service('PrintService', function(){
         date: (data.transport && data.transport.date)?data.transport.date:" ",
         amount: (data.transport && data.transport.amount)?data.transport.amount:" ",
       },
-      miscellaneous: {
-        amount: (data.miscellaneous && data.miscellaneous.amount)?data.miscellaneous.amount:" ",
-        reason: (data.miscellaneous && data.miscellaneous.reason)?data.miscellaneous.reason:" "
-      }
+      feedCost: {
+        quantity: (data.feedCost && data.feedCost.quantity)?data.feedCost.quantity:" ",
+        date: (data.feedCost && data.feedCost.date)?data.feedCost.date:" ",
+        amount: (data.feedCost && data.feedCost.amount)?data.feedCost.amount:" "
+      },
+      medicine: {
+        name: (data.medicine && data.medicine.name)?data.medicine.name:" ",
+        amount: (data.medicine && data.medicine.amount)?data.medicine.amount:" ",
+        date: (data.medicine && data.medicine.date)?data.medicine.date:" ",
+      },
+      unitCost: unitCost,
+      balance: 125000 - unitCost,
+      forBeneficiary: ((125000 - unitCost) > 0)?((125000 - unitCost) * 0.25): 0,
+      forGovt: ((125000 - unitCost) > 0)?((125000 - unitCost) * 0.75): 0,
     }
   }
 
@@ -260,30 +448,55 @@ angular.module('nlmsApp').service('PrintService', function(){
 })
 
 angular.module('nlmsApp').factory('CustomersService', function($http) {
-    var nlms = {};
+    var customers = {};
 
-    nlms.add = function add(data){
+    customers.add = function add(data){
       return $http.post('/customers/add', data);
     }
 
-    nlms.get = function get(data){
+    customers.get = function get(data){
       return $http.post('/customers/get', data);
     }
 
-    nlms.getDetails = function getDetails(id){
+    customers.getDetails = function getDetails(id){
       return $http.get('/customers/'+id);
     }
 
-    nlms.search = function search(data) {
+    customers.search = function search(data) {
       return $http.post('/customers/search', data);
     }
 
-    nlms.edit = function edit(id, data){
+    customers.edit = function edit(id, data){
       return $http.put('/customers/'+id, data);
     }
 
+    customers.reports = function reports(date) {
+      return $http.post('/customers/reports', {date: date});
+    }
 
-    return nlms;
+    return customers;
+});
+
+angular.module('nlmsApp').factory('SellerService', function($http) {
+    var sellers = {};
+
+    sellers.get = function get(){
+      return $http.get('/sellers/get');
+    }
+
+    sellers.getSellerData = function getSellerData(sellerID){
+      return $http.get('/sellers/get/'+sellerID);
+    }
+
+    sellers.search = function search(data){
+      return $http.post('/sellers/search', data);
+    }
+
+    sellers.update = function update(data){
+      return $http.put('/sellers/'+data._id, data);
+    }
+
+    return sellers;
 });
 
 angular.module('nlmsApp').factory('MandalsService', function(){
